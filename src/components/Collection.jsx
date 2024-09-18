@@ -13,7 +13,7 @@ export default function Collection() {
     // add description and prices
     return (
         <div className="flex flex-col pl-32">
-            <h1 className="pt-10 text-5xl font-light"> {items.length} Items Found </h1>
+            <h1 className="pt-10 text-5xl font-light text-gray-500"> {items.length} Items Found </h1>
             <div className="flex gap-10">
                 <Filter/>
                 <Grid items={items}/>

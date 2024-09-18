@@ -1,10 +1,10 @@
 export default function NavBar() {
     return (
-        <div className="flex gap-5 pt-10 pb-10 pl-32 pr-32 items-end border bg-amber-50">
+        <div className="flex gap-6 pt-10 pb-9 pl-20 pr-20 items-end border bg-blue-50">
             <h1 className="font-extrabold text-6xl">
                 Goods.
             </h1>
-            <button className="text-2xl font-bold underline decoration-4">
+            <button className="text-2xl ml-3 font-bold underline decoration-4">
                 Home
             </button>
             <button className="text-2xl font-bold underline decoration-4">
