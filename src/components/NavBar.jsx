@@ -1,13 +1,13 @@
 export default function NavBar() {
     return (
-        <div className="flex gap-5 p-10 pl-32 pr-32 items-end">
+        <div className="flex gap-5 pt-10 pb-10 pl-32 pr-32 items-end border bg-amber-50">
             <h1 className="font-extrabold text-6xl">
                 Goods.
             </h1>
-            <button className="text-2xl font-bold ml-4">
+            <button className="text-2xl font-bold underline decoration-4">
                 Home
             </button>
-            <button className="text-2xl font-bold">
+            <button className="text-2xl font-bold underline decoration-4">
                 Collection
             </button>
             <input
