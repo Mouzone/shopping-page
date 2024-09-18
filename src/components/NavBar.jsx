@@ -13,7 +13,7 @@ export default function NavBar() {
             <input
                 aria-label="search"
                 placeholder="Search"
-                className="bg-slate-300 rounded-full px-5 ml-auto h-9 w-40"
+                className="bg-gray-300 rounded-full px-5 ml-auto h-9 w-40"
             />
             <button className="flex items-center gap-1 cursor-pointer text-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-red-500"><title>Favorite</title>
