@@ -92,7 +92,7 @@ function CustomCarousel({ items }) {
         {
             items.map(item =>
                 <img
-                    key={item.title}
+                    key={item.id}
                     src={item.image}
                     alt={item.title}
                 />)
