@@ -8,18 +8,22 @@ export default function Homepage() {
         fetch('https://fakestoreapi.com/products?limit=5')
             .then(res=> res.json())
             .then(data => setItems(data))
-            .then(err => console.error(err))
     }, [])
 
-    if (items.length === 0) {
-        return <p>Loading...</p>;  // Show a loading state while fetching data
-    }
     return (
-            <div className="flex flex-col items-center mt-10">
-                <h2 className="font-bold text-7xl"> Any Item </h2>
-                <h3 className="font-bold text-4xl"> Cheap Price </h3>
-                <CustomCarousel items={items}/>
-            </div>
+        <div className="flex flex-col items-center mt-10">
+            {items.length === 0 ? (
+                <div className="flex items-center justify-center">
+                    <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
+                </div>
+            ) : (
+                <>
+                    <h2 className="font-bold text-7xl">Any Item</h2>
+                    <h3 className="font-bold text-4xl">Cheap Price</h3>
+                    <CustomCarousel items={items} />
+                </>
+            )}
+        </div>
     )
 }
 
@@ -27,7 +31,7 @@ function CustomCarousel({ items }) {
     return <Carousel
         className="rounded-xl w-64 items-center ml-auto mr-auto"
         navigation={({ setActiveIndex, activeIndex, length }) => (
-            <div className="absolute bottom-5 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+            <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
                 {new Array(length).fill("").map((_, i) => (
                     <span
                         key={i}
@@ -43,7 +47,7 @@ function CustomCarousel({ items }) {
             <IconButton
                 variant="text"
                 color="gray"
-                size="med"
+                size="sm"
                 onClick={handlePrev}
                 className="!absolute bottom-0 left-5"
             >
@@ -64,7 +68,7 @@ function CustomCarousel({ items }) {
             <IconButton
                 variant="text"
                 color="gray"
-                size="med"
+                size="sm"
                 onClick={handleNext}
                 className="!absolute bottom-0 !right-5"
             >

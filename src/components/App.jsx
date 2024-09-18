@@ -1,12 +1,12 @@
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 import NavBar from './NavBar.jsx'
-import Hompage from './Homepage.jsx'
 
 function App() {
   return (
     <>
         <NavBar/>
-        <Hompage/>
+        <Outlet/>
     </>
   )
 }
