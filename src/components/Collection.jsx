@@ -27,6 +27,7 @@ export default function Collection() {
             <div className="flex gap-10">
                 <Filter
                     onFilter = {onFilter}
+                    toSelect = {filterBy}
                 />
                 <Grid
                     items={filtered_items}
@@ -38,30 +39,30 @@ export default function Collection() {
 
 // the JSON has jewelry as jewelery
 // highlight the category that is selected
-function Filter({onFilter}) {
+function Filter({onFilter, toSelect}) {
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
             <h2 className="text-4xl"> Categories: </h2>
             <button
-                className="mt-2 self-start ml-5"
+                className={`mt-2 self-start ml-5 ${toSelect === "men's clothing" ? "font-bold underline" : "none"}`}
                 onClick={onFilter("men's clothing")}
             >
                 Men's Clothing
             </button>
             <button
-                className="self-start ml-5"
+                className={`self-start ml-5 ${toSelect === "jewelery" ? "font-bold underline" : "none"}`}
                 onClick={onFilter("jewelery")}
             >
                 Jewelry
             </button>
             <button
-                className="self-start ml-5"
+                className={`self-start ml-5 ${toSelect === "electronics" ? "font-bold underline" : "none"}`}
                 onClick={onFilter("electronics")}
             >
                 Electronics
             </button>
             <button
-                className="self-start ml-5"
+                className={`self-start ml-5 ${toSelect === "women's clothing" ? "font-bold underline" : "none"}`}
                 onClick={onFilter("women's clothing")}
             >
                 Women's Clothing
