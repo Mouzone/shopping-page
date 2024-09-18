@@ -19,7 +19,7 @@ export default function Homepage() {
             ) : (
                 <>
                     <h2 className="font-bold text-7xl">Any Item</h2>
-                    <h3 className="font-bold text-4xl">Cheap Price</h3>
+                    <h3 className="font-bold text-4xl mt-4">Cheap Price</h3>
                     <CustomCarousel items={items} />
                 </>
             )}

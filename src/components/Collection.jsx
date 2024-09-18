@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import {filter} from "jsdom/lib/jsdom/living/traversal/helpers.js";
 
 export default function Collection() {
     const [ items, setItems ] = useState([])
+    const [ filterBy, setFilterBy ] = useState("none")
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -9,40 +11,66 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
-    // add filter bar to left and search
-    // add description and prices
+    function onFilter(val) {
+        return () => {
+            setFilterBy(val)
+        }
+    }
+
+    const filtered_items =  filterBy !== "none"
+                                    ? items.filter(item => item.category === filterBy)
+                                    : items
+
     return (
         <div className="flex flex-col pl-32">
-            <h1 className="pt-10 text-5xl font-light text-gray-500"> {items.length} Items Found </h1>
+            <h1 className="pt-10 text-5xl font-light text-gray-500"> {filtered_items.length} Items Found </h1>
             <div className="flex gap-10">
-                <Filter/>
-                <Grid items={items}/>
+                <Filter
+                    onFilter = {onFilter}
+                />
+                <Grid
+                    items={filtered_items}
+                />
             </div>
         </div>
     )
 }
 
 // the JSON has jewelry as jewelery
-function Filter() {
+// highlight the category that is selected
+function Filter({onFilter}) {
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
             <h2 className="text-4xl"> Categories: </h2>
-            <button className="mt-2 self-start ml-5">
+            <button
+                className="mt-2 self-start ml-5"
+                onClick={onFilter("men's clothing")}
+            >
                 Men's Clothing
             </button>
-            <button className="self-start ml-5">
+            <button
+                className="self-start ml-5"
+                onClick={onFilter("jewelery")}
+            >
                 Jewelry
             </button>
-            <button className="self-start ml-5">
+            <button
+                className="self-start ml-5"
+                onClick={onFilter("electronics")}
+            >
                 Electronics
             </button>
-            <button className="self-start ml-5">
+            <button
+                className="self-start ml-5"
+                onClick={onFilter("women's clothing")}
+            >
                 Women's Clothing
             </button>
         </div>
     )
 }
 
+// add price, maybe description
 function Grid({ items }) {
     return (
         <div className="flex flex-col items-center">
