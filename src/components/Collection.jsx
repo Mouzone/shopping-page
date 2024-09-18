@@ -38,7 +38,7 @@ export default function Collection() {
 }
 
 // the JSON has jewelry as jewelery
-// highlight the category that is selected
+// todo: add price slider to set min and max and search
 function Filter({onFilter, toSelect}) {
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
@@ -82,7 +82,7 @@ function Grid({ items }) {
             ) : (
                 <div className="grid grid-cols-4 gap-16 items-center mt-4">
                     {items.map(item =>
-                        <div key={item.id} className="flex flex-col h-80">
+                        <div key={item.id} className="flex flex-col h-96">
                             <div className="flex items-center h-72">
                                 <img className="w-40" key={item.id} src={item.image} alt={item.title}/>
                             </div>
@@ -96,10 +96,21 @@ function Grid({ items }) {
                                     </svg>
                                 </button>
                             </div>
+                            <h2 className="font-bold">
+                                ${formatPrice(item.price)}
+                            </h2>
+                            <p className="w-44 line-clamp-3 truncate ... text-xs whitespace-normal"> {item.description}</p>
                         </div>
                     )}
                 </div>
             )
             }
         </div>)
+}
+
+function formatPrice(price) {
+    if (Number.isInteger(price)) {
+        return price.toFixed(2)
+    }
+    return price.toFixed(2);
 }
