@@ -5,7 +5,7 @@ import {Form} from "react-router-dom";
 export default function Collection() {
     const [ items, setItems ] = useState([])
     const [ filterBy, setFilterBy ] = useState({
-        term: "",
+        category: "",
         min_price: 0,
         max_price: Infinity,
     })
@@ -16,7 +16,7 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
-    let filtered_items = filterBy.term === "" ? items : items.filter(item => item.category === filterBy.term)
+    let filtered_items = filterBy.category === "" ? items : items.filter(item => item.category === filterBy.category)
     filtered_items = filtered_items.filter(item =>
         parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
 
@@ -40,52 +40,95 @@ export default function Collection() {
 // todo: change inputs with state
 // todo: refactor code
 function Filter({setFilter, filterBy}) {
+    const [ minPriceInput, setMinPriceInput ] = useState("")
+    const [ maxPriceInput, setMaxPriceInput ] = useState("")
+
     function filterOnCategory(category) {
         return () => {
-            setFilter({...filterBy, term: category})
+            setFilter({...filterBy, category: category})
         }
     }
 
     function filterOnPrice(min_price, max_price) {
-        min_price = isNaN(min_price) ? 0 : 0
+        min_price = isNaN(min_price) ? 0 : min_price
         max_price = isNaN(max_price) ? Infinity :  max_price
         setFilter({...filterBy, min_price: min_price, max_price: max_price})
     }
 
-    let min_price = filterBy.min_price
-    let max_price = filterBy.max_price
+    function handleClear() {
+        setMinPriceInput("")
+        setMaxPriceInput("")
+        filterOnPrice(0, Infinity)
+    }
+
+    function handleChange(setValue) {
+        return (e) => {
+            const value = e.target.value
+            const numeric_value = value.replace(/[^0-9.]/g, "")
+            setValue(numeric_value)
+        }
+    }
 
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
             <h2 className="text-4xl"> Categories: </h2>
             <button
-                className={`mt-2 self-start ml-5 ${filterBy.term === "men's clothing" ? "font-bold underline" : "none"}`}
+                className={`mt-2 self-start ml-5 ${filterBy.category === "men's clothing" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("men's clothing")}
             >
                 Men's Clothing
             </button>
             <button
-                className={`self-start ml-5 ${filterBy.term === "jewelery" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-5 ${filterBy.category === "jewelery" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("jewelery")}
             >
                 Jewelry
             </button>
             <button
-                className={`self-start ml-5 ${filterBy.term === "electronics" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-5 ${filterBy.category === "electronics" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("electronics")}
             >
                 Electronics
             </button>
             <button
-                className={`self-start ml-5 ${filterBy.term === "women's clothing" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-5 ${filterBy.category === "women's clothing" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("women's clothing")}
             >
                 Women's Clothing
             </button>
+            <h2 className="text-4xl mt-4"> Price Range: </h2>
+            <Form className="flex gap-2">
+                <input
+                    className="border-b border-black w-10 p-1 text-center"
+                    placeholder="Min"
+                    value={minPriceInput === "" ? "" : `$${minPriceInput}`}
+                    onChange={handleChange(setMinPriceInput)}
+                />
+                <p className="self-center"> - </p>
+                <input
+                    className="border-b border-black w-10 p-1 text-center"
+                    placeholder="Max"
+                    value={maxPriceInput === "" ? "" : `$${maxPriceInput}`}
+                    onChange={handleChange(setMaxPriceInput)}
+                />
+                <button
+                    type="submit"
+                    onClick={() => filterOnPrice(parseFloat(minPriceInput), parseFloat(maxPriceInput))}
+                >
+                    Submit
+                </button>
+                <button
+                    type="button"
+                    onClick={() => handleClear()}
+                >
+                    Clear
+                </button>
+            </Form>
             {/*todo: change stylings so the category term has no extra space to left and right*/}
-            { filterBy.term !== "" && (
-                <div className="text-xs flex bg-blue-200 w-32 truncate ... p-2 rounded justify-center items-center gap-1">
-                    {filterBy.term}
+            {filterBy.category !== "" && (
+                <div
+                    className="text-xs flex bg-blue-200 w-32 truncate ... p-2 rounded justify-center items-center gap-1">
+                    {filterBy.category}
                     <button
                         type="button"
                         className="w-5"
@@ -98,32 +141,8 @@ function Filter({setFilter, filterBy}) {
                     </button>
                 </div>
             )}
-            <Form className="flex gap-2">
-                <input
-                    className="border border-black w-10 p-1 text-center"
-                    placeholder="Min Price"
-                    onChange={(e) => min_price = parseFloat(e.target.value)}
-                />
-                <input
-                    className="border border-black w-10 p-1 text-center"
-                    placeholder="Max Price"
-                    onChange={(e) => max_price = parseFloat(e.target.value)}
-                />
-                {/*todo: add clear button to reset inputs and trigger search*/}
-                <button
-                    type="submit"
-                    onClick={() => filterOnPrice(min_price, max_price)}
-                >
-                    Submit
-                </button>
-                <button
-                    type="button"
-                    onClick={() => filterOnPrice(0, Infinity)}
-                >
-                    Clear
-                </button>
-            </Form>
         </div>
+
     )
 }
 
