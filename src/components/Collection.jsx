@@ -23,18 +23,19 @@ export default function Collection() {
         filtered_items = items
     } else if(filterBy.term !== "price") {
         filtered_items = items.filter(item => item.category === filterBy.term)
-    } else {
-        filtered_items = items.filter(item =>
-            parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
     }
+    filtered_items = filtered_items.filter(item =>
+        parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
 
+    // todo: display filters at top, and able to remove
+    // todo: layer filters such that there is no such thing as price search term
     return (
         <div className="flex flex-col pl-32">
             <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
             <div className="flex gap-10">
                 <Filter
                     setFilter = {setFilterBy}
-                    toSelect = {filterBy}
+                    filterBy = {filterBy}
                 />
                 <Grid
                     items={filtered_items}
@@ -45,56 +46,55 @@ export default function Collection() {
 }
 
 // the JSON has jewelry as jewelery
-// todo: add price slider to set min and max and search
-function Filter({setFilter, toSelect}) {
+function Filter({setFilter, filterBy}) {
     function filterOnCategory(category) {
         return () => {
-            setFilter({...toSelect, term: category})
+            setFilter({...filterBy, term: category})
         }
     }
 
     function filterOnPrice(min_price, max_price) {
-        setFilter({term: "price", min_price: min_price, max_price: max_price})
+        setFilter({...filterBy, min_price: min_price, max_price: max_price})
     }
 
-    let min_price = toSelect.min_price
-    let max_price = toSelect.max_price
+    let min_price = filterBy.min_price
+    let max_price = filterBy.max_price
 
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
             <h2 className="text-4xl"> Categories: </h2>
             <button
-                className={`mt-2 self-start ml-5 ${toSelect === "men's clothing" ? "font-bold underline" : "none"}`}
+                className={`mt-2 self-start ml-5 ${filterBy.term === "men's clothing" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("men's clothing")}
             >
                 Men's Clothing
             </button>
             <button
-                className={`self-start ml-5 ${toSelect === "jewelery" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-5 ${filterBy.term === "jewelery" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("jewelery")}
             >
                 Jewelry
             </button>
             <button
-                className={`self-start ml-5 ${toSelect === "electronics" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-5 ${filterBy.term === "electronics" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("electronics")}
             >
                 Electronics
             </button>
             <button
-                className={`self-start ml-5 ${toSelect === "women's clothing" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-5 ${filterBy.term === "women's clothing" ? "font-bold underline" : "none"}`}
                 onClick={filterOnCategory("women's clothing")}
             >
                 Women's Clothing
             </button>
             <Form className="flex gap-2">
                 <input
-                    className="border border-black w-20"
+                    className="border border-black w-10 p-1 text-center"
                     placeholder="Min Price"
                     onChange={(e) => min_price = parseFloat(e.target.value)}
                 />
                 <input
-                    className="border border-black w-20"
+                    className="border border-black w-10 p-1 text-center"
                     placeholder="Max Price"
                     onChange={(e) => max_price = parseFloat(e.target.value)}
                 />
@@ -109,15 +109,10 @@ function Filter({setFilter, toSelect}) {
     )
 }
 
-// add price, maybe description
+// todo: add spinner when items is loading, not when there are no items in search
 function Grid({ items }) {
     return (
         <div className="flex flex-col items-center">
-            {items.length === 0 ? (
-                <div className="flex items-center justify-center">
-                    <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
-                </div>
-            ) : (
                 <div className="grid grid-cols-4 gap-16 items-center mt-4">
                     {items.map(item =>
                         <div key={item.id} className="flex flex-col h-96">
@@ -141,8 +136,6 @@ function Grid({ items }) {
                         </div>
                     )}
                 </div>
-            )
-            }
         </div>)
 }
 
