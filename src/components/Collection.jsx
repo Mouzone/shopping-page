@@ -20,7 +20,6 @@ export default function Collection() {
     filtered_items = filtered_items.filter(item =>
         parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
 
-    // todo: display filters at top, and able to remove
     return (
         <div className="flex flex-col pl-32">
             <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
@@ -38,6 +37,8 @@ export default function Collection() {
 }
 
 // the JSON has jewelry as jewelery
+// todo: change inputs with state
+// todo: refactor code
 function Filter({setFilter, filterBy}) {
     function filterOnCategory(category) {
         return () => {
@@ -81,6 +82,7 @@ function Filter({setFilter, filterBy}) {
             >
                 Women's Clothing
             </button>
+            {/*todo: change stylings so the category term has no extra space to left and right*/}
             { filterBy.term !== "" && (
                 <div className="text-xs flex bg-blue-200 w-32 truncate ... p-2 rounded justify-center items-center gap-1">
                     {filterBy.term}
@@ -107,11 +109,18 @@ function Filter({setFilter, filterBy}) {
                     placeholder="Max Price"
                     onChange={(e) => max_price = parseFloat(e.target.value)}
                 />
+                {/*todo: add clear button to reset inputs and trigger search*/}
                 <button
                     type="submit"
                     onClick={() => filterOnPrice(min_price, max_price)}
                 >
                     Submit
+                </button>
+                <button
+                    type="button"
+                    onClick={() => filterOnPrice(0, Infinity)}
+                >
+                    Clear
                 </button>
             </Form>
         </div>
