@@ -96,8 +96,8 @@ function Filter({setFilter, filterBy}) {
             >
                 Women's Clothing
             </button>
-            <h2 className="text-4xl mt-4"> Price Range: </h2>
-            <Form className="flex gap-2">
+            <h2 className="text-4xl mt-6"> Price Range: </h2>
+            <Form className="flex gap-2 text-sm">
                 <input
                     className="border-b border-black w-10 p-1 text-center"
                     placeholder="Min"
@@ -114,12 +114,14 @@ function Filter({setFilter, filterBy}) {
                 <button
                     type="submit"
                     onClick={() => filterOnPrice(parseFloat(minPriceInput), parseFloat(maxPriceInput))}
+                    className="bg-blue-200 p-2 rounded border-2 border-transparent active:border-blue-500"
                 >
                     Submit
                 </button>
                 <button
                     type="button"
                     onClick={() => handleClear()}
+                    className="bg-red-200 p-2 rounded border-2 border-transparent active:border-blue-500"
                 >
                     Clear
                 </button>
