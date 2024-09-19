@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {filter} from "jsdom/lib/jsdom/living/traversal/helpers.js";
 import {Form} from "react-router-dom";
+import {setIsInitial} from "@material-tailwind/react/components/Tabs/TabsContext.js";
 
 export default function Collection() {
     const [ items, setItems ] = useState([])
@@ -9,6 +10,7 @@ export default function Collection() {
         min_price: 0,
         max_price: Infinity,
     })
+    const [ sortIsActive, setSortIsActive ] = useState(false)
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -16,17 +18,21 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
+    // todo: sort and search bar
     let filtered_items = filterBy.category === "" ? items : items.filter(item => item.category === filterBy.category)
     filtered_items = filtered_items.filter(item =>
         parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
 
     return (
         <div className="flex flex-col pl-32">
-            <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
-            <div className="flex gap-10">
+            <div className="flex">
+                <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
+                <Sort isActive={sortIsActive} setIsActive={setSortIsActive}/>
+            </div>
+            <div className="flex gap-2">
                 <Filter
-                    setFilter = {setFilterBy}
-                    filterBy = {filterBy}
+                    setFilter={setFilterBy}
+                    filterBy={filterBy}
                 />
                 <Grid
                     items={filtered_items}
@@ -36,12 +42,46 @@ export default function Collection() {
     )
 }
 
+function Sort({ isActive, setIsActive }) {
+    return (
+        <div className="flex flex-col font-light self-end ml-auto mr-40 items-center">
+            <h3 className="flex items-center gap-1">
+                Sort By
+                <button
+                    className="w-4"
+                    onClick={() => setIsActive(!isActive)}
+                >
+                    {isActive
+                        ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-up</title>
+                                <path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"/>
+                            </svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-down</title>
+                                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                            </svg>
+                        )
+                    }
+                </button>
+            </h3>
+            { isActive && (
+                <div className="flex flex-col absolute mt-7 bg-white rounded border border-black pb-2">
+                    <button className="hover:underline p-2"> A - Z</button>
+                    <button className="hover:underline p-2"> Z - A</button>
+                    <button className="hover:underline p-2"> Price ↑</button>
+                    <button className="hover:underline p-2"> Price ↓</button>
+                </div>
+            )
+            }
+        </div>
+    )
+}
+
 // the JSON has jewelry as jewelery
-// todo: change inputs with state
 // todo: refactor code
 function Filter({setFilter, filterBy}) {
-    const [ minPriceInput, setMinPriceInput ] = useState("")
-    const [ maxPriceInput, setMaxPriceInput ] = useState("")
+    const [minPriceInput, setMinPriceInput] = useState("")
+    const [maxPriceInput, setMaxPriceInput] = useState("")
 
     function filterOnCategory(category) {
         return () => {
@@ -51,7 +91,7 @@ function Filter({setFilter, filterBy}) {
 
     function filterOnPrice(min_price, max_price) {
         min_price = isNaN(min_price) ? 0 : min_price
-        max_price = isNaN(max_price) ? Infinity :  max_price
+        max_price = isNaN(max_price) ? Infinity : max_price
         setFilter({...filterBy, min_price: min_price, max_price: max_price})
     }
 
@@ -97,7 +137,7 @@ function Filter({setFilter, filterBy}) {
                 Women's Clothing
             </button>
             <h2 className="text-4xl mt-6"> Price Range: </h2>
-            <Form className="flex gap-2 text-sm">
+            <Form className="flex gap-2 text-sm items-center mt-1">
                 <input
                     className="border-b border-black w-10 p-1 text-center"
                     placeholder="Min"
