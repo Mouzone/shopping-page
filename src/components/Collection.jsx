@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import {filter} from "jsdom/lib/jsdom/living/traversal/helpers.js";
+import {Form} from "react-router-dom";
 
 export default function Collection() {
     const [ items, setItems ] = useState([])
-    const [ filterBy, setFilterBy ] = useState("none")
+    // todo: turn filterBy into an object with first term to be what filterBy,
+    // then second and third for price range
+    const [ filterBy, setFilterBy ] = useState({
+        term: "",
+        min_price: 0,
+        max_price: Infinity,
+    })
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -11,22 +18,22 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
-    function onFilter(val) {
-        return () => {
-            setFilterBy(val)
-        }
+    let filtered_items
+    if (filterBy.term === "") {
+        filtered_items = items
+    } else if(filterBy.term !== "price") {
+        filtered_items = items.filter(item => item.category === filterBy.term)
+    } else {
+        filtered_items = items.filter(item =>
+            parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
     }
-
-    const filtered_items =  filterBy !== "none"
-                                    ? items.filter(item => item.category === filterBy)
-                                    : items
 
     return (
         <div className="flex flex-col pl-32">
-            <h1 className="pt-10 text-5xl font-light text-gray-500"> {filtered_items.length} Items Found </h1>
+            <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
             <div className="flex gap-10">
                 <Filter
-                    onFilter = {onFilter}
+                    setFilter = {setFilterBy}
                     toSelect = {filterBy}
                 />
                 <Grid
@@ -39,34 +46,65 @@ export default function Collection() {
 
 // the JSON has jewelry as jewelery
 // todo: add price slider to set min and max and search
-function Filter({onFilter, toSelect}) {
+function Filter({setFilter, toSelect}) {
+    function filterOnCategory(category) {
+        return () => {
+            setFilter({...toSelect, term: category})
+        }
+    }
+
+    function filterOnPrice(min_price, max_price) {
+        setFilter({term: "price", min_price: min_price, max_price: max_price})
+    }
+
+    let min_price = toSelect.min_price
+    let max_price = toSelect.max_price
+
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
             <h2 className="text-4xl"> Categories: </h2>
             <button
                 className={`mt-2 self-start ml-5 ${toSelect === "men's clothing" ? "font-bold underline" : "none"}`}
-                onClick={onFilter("men's clothing")}
+                onClick={filterOnCategory("men's clothing")}
             >
                 Men's Clothing
             </button>
             <button
                 className={`self-start ml-5 ${toSelect === "jewelery" ? "font-bold underline" : "none"}`}
-                onClick={onFilter("jewelery")}
+                onClick={filterOnCategory("jewelery")}
             >
                 Jewelry
             </button>
             <button
                 className={`self-start ml-5 ${toSelect === "electronics" ? "font-bold underline" : "none"}`}
-                onClick={onFilter("electronics")}
+                onClick={filterOnCategory("electronics")}
             >
                 Electronics
             </button>
             <button
                 className={`self-start ml-5 ${toSelect === "women's clothing" ? "font-bold underline" : "none"}`}
-                onClick={onFilter("women's clothing")}
+                onClick={filterOnCategory("women's clothing")}
             >
                 Women's Clothing
             </button>
+            <Form className="flex gap-2">
+                <input
+                    className="border border-black w-20"
+                    placeholder="Min Price"
+                    onChange={(e) => min_price = parseFloat(e.target.value)}
+                />
+                <input
+                    className="border border-black w-20"
+                    placeholder="Max Price"
+                    onChange={(e) => max_price = parseFloat(e.target.value)}
+                />
+                <button
+                    type="submit"
+                    onClick={() => filterOnPrice(min_price, max_price)}
+                >
+                    Submit
+                </button>
+            </Form>
         </div>
     )
 }

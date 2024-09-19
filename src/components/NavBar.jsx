@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 // todo: search functionality to load elmeents that are searched for
 export default function NavBar() {
     return (
-        <div className="flex gap-6 pt-10 pb-9 pl-20 pr-20 items-end border bg-blue-50">
+        <div className="flex gap-6 pt-10 pb-9 pl-32 pr-32 items-end border bg-blue-50">
             <h1 className="font-extrabold text-6xl">
                 Goods.
             </h1>
