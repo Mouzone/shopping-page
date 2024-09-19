@@ -10,6 +10,7 @@ export default function Homepage() {
             .then(data => setItems(data))
     }, [])
 
+    // todo: add links for each item so clicking on item brings to its page
     return (
         <div className="flex flex-col items-center mt-10">
             {items.length === 0 ? (

@@ -4,8 +4,6 @@ import {Form} from "react-router-dom";
 
 export default function Collection() {
     const [ items, setItems ] = useState([])
-    // todo: turn filterBy into an object with first term to be what filterBy,
-    // then second and third for price range
     const [ filterBy, setFilterBy ] = useState({
         term: "",
         min_price: 0,
@@ -18,17 +16,11 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
-    let filtered_items
-    if (filterBy.term === "") {
-        filtered_items = items
-    } else if(filterBy.term !== "price") {
-        filtered_items = items.filter(item => item.category === filterBy.term)
-    }
+    let filtered_items = filterBy.term === "" ? items : items.filter(item => item.category === filterBy.term)
     filtered_items = filtered_items.filter(item =>
         parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
 
     // todo: display filters at top, and able to remove
-    // todo: layer filters such that there is no such thing as price search term
     return (
         <div className="flex flex-col pl-32">
             <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
@@ -54,6 +46,8 @@ function Filter({setFilter, filterBy}) {
     }
 
     function filterOnPrice(min_price, max_price) {
+        min_price = isNaN(min_price) ? 0 : 0
+        max_price = isNaN(max_price) ? Infinity :  max_price
         setFilter({...filterBy, min_price: min_price, max_price: max_price})
     }
 
@@ -87,6 +81,21 @@ function Filter({setFilter, filterBy}) {
             >
                 Women's Clothing
             </button>
+            { filterBy.term !== "" && (
+                <div className="text-xs flex bg-blue-200 w-32 truncate ... p-2 rounded justify-center items-center gap-1">
+                    {filterBy.term}
+                    <button
+                        type="button"
+                        className="w-5"
+                        onClick={filterOnCategory("")}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>window-close</title>
+                            <path
+                                d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"/>
+                        </svg>
+                    </button>
+                </div>
+            )}
             <Form className="flex gap-2">
                 <input
                     className="border border-black w-10 p-1 text-center"
