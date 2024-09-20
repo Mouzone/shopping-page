@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Carousel, IconButton } from "@material-tailwind/react";
-
+// todo: make own carousel element
 export default function Homepage() {
     const [ items, setItems ] = useState([])
 
