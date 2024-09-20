@@ -4,6 +4,8 @@ import {Form} from "react-router-dom";
 // todo: split components into separate files
 // todo: add sort tag and remove it on click
 // todo: reduce font-size of headers on left side
+// todo: mov eclear button
+// todo: change styling to pure black and white
 export default function Collection() {
     const [ items, setItems ] = useState([])
     const [ filterBy, setFilterBy ] = useState({
@@ -173,60 +175,64 @@ function Filter({setFilter, filterBy}) {
 
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
-            <h2 className="text-4xl"> Categories: </h2>
+            <h2 className="text-2xl underline"> Categories: </h2>
             <button
-                className={`mt-2 self-start ml-5 ${filterBy.category === "men's clothing" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-3 ${filterBy.category === "men's clothing" ? "font-bold" : "none"}`}
                 onClick={filterOnCategory("men's clothing")}
             >
                 Men's Clothing
             </button>
             <button
-                className={`self-start ml-5 ${filterBy.category === "jewelery" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-3 ${filterBy.category === "jewelery" ? "font-bold" : "none"}`}
                 onClick={filterOnCategory("jewelery")}
             >
                 Jewelry
             </button>
             <button
-                className={`self-start ml-5 ${filterBy.category === "electronics" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-3 ${filterBy.category === "electronics" ? "font-bold" : "none"}`}
                 onClick={filterOnCategory("electronics")}
             >
                 Electronics
             </button>
             <button
-                className={`self-start ml-5 ${filterBy.category === "women's clothing" ? "font-bold underline" : "none"}`}
+                className={`self-start ml-3 ${filterBy.category === "women's clothing" ? "font-bold" : "none"}`}
                 onClick={filterOnCategory("women's clothing")}
             >
                 Women's Clothing
             </button>
-            <h2 className="text-4xl mt-6"> Price Range: </h2>
-            <Form className="flex gap-2 text-sm items-center mt-1">
-                <input
-                    className="border-b border-black w-10 p-1 text-center"
-                    placeholder="Min"
-                    value={minPriceInput === "" ? "" : `$${minPriceInput}`}
-                    onChange={handleChange(setMinPriceInput)}
-                />
-                <p className="self-center"> - </p>
-                <input
-                    className="border-b border-black w-10 p-1 text-center"
-                    placeholder="Max"
-                    value={maxPriceInput === "" ? "" : `$${maxPriceInput}`}
-                    onChange={handleChange(setMaxPriceInput)}
-                />
-                <button
-                    type="submit"
-                    onClick={() => filterOnPrice(parseFloat(minPriceInput), parseFloat(maxPriceInput))}
-                    className="bg-blue-200 p-2 rounded border-2 border-transparent active:border-blue-500"
-                >
-                    Submit
-                </button>
-                <button
-                    type="button"
-                    onClick={() => handleClear()}
-                    className="bg-red-200 p-2 rounded border-2 border-transparent active:border-blue-500"
-                >
-                    Clear
-                </button>
+            <h2 className="text-2xl mt-1 underline"> Price Range: </h2>
+            <Form className="flex gap-2 text-sm items-center ">
+                <div className="flex gap-1">
+                    <input
+                        className="border-b border-black w-10 p-1 text-center"
+                        placeholder="Min"
+                        value={minPriceInput === "" ? "" : `$${minPriceInput}`}
+                        onChange={handleChange(setMinPriceInput)}
+                    />
+                    <p className="self-center"> - </p>
+                    <input
+                        className="border-b border-black w-10 p-1 text-center"
+                        placeholder="Max"
+                        value={maxPriceInput === "" ? "" : `$${maxPriceInput}`}
+                        onChange={handleChange(setMaxPriceInput)}
+                    />
+                </div>
+                <div className="flex gap-1">
+                    <button
+                        type="submit"
+                        onClick={() => filterOnPrice(parseFloat(minPriceInput), parseFloat(maxPriceInput))}
+                        className="bg-blue-200 p-1 rounded border-2 border-transparent active:border-blue-500"
+                    >
+                        Submit
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => handleClear()}
+                        className="bg-red-200 p-1 rounded border-2 border-transparent active:border-blue-500"
+                    >
+                        Clear
+                    </button>
+                </div>
             </Form>
             {filterBy.category !== "" && (
                 <div
