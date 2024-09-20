@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {Form} from "react-router-dom";
 
+// todo: split components into separate files
 export default function Collection() {
     const [ items, setItems ] = useState([])
     const [ filterBy, setFilterBy ] = useState({
@@ -9,6 +10,10 @@ export default function Collection() {
         max_price: Infinity,
     })
     const [ sortIsActive, setSortIsActive ] = useState(false)
+    const [ sortBy, setSortBy ] = useState({
+        sort_type: "",
+        sort_direction: ""
+    })
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -20,6 +25,8 @@ export default function Collection() {
     let filtered_items = filterBy.category === "" ? items : items.filter(item => item.category === filterBy.category)
     filtered_items = filtered_items.filter(item =>
         parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
+
+    let sorted_filtered_items = customSort(filtered_items, sortBy)
 
     return (
         <div className="flex flex-col pl-32">
@@ -40,8 +47,35 @@ export default function Collection() {
     )
 }
 
+function customSort(list, sortBy) {
+    if (sortBy.type === "") {
+        return list
+    }
+
+    let do_if_greater = 1
+    let do_if_less = -1
+    if (sortBy.sort_direction === "descending") {
+        do_if_greater = -1
+        do_if_less = 1
+    }
+
+
+    list.sort((a, b) => {
+            const left = sortBy.type === "alphabetical" ? a.category.toLowerCase() : parseFloat(a.price)
+            const right = sortBy.type === "alphabetical" ? b.category.toLowerCase() : parseFloat(b.price)
+
+            return left === right
+                ? 0
+                : left > right
+                    ? do_if_greater
+                    : do_if_less
+    })
+
+    return list
+}
+
 // todo: add sort funcitonality
-function Sort({ isActive, setIsActive }) {
+function Sort({ isActive, setIsActive, sortBy, setSortBy }) {
     return (
         <div className="flex flex-col font-light self-end ml-auto mr-40 items-center">
             <h3 className="flex items-center gap-1">
