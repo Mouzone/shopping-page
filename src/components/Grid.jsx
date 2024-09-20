@@ -4,8 +4,11 @@ export default function Grid({ items }) {
     return (
         <div className="w-full flex flex-col items-center">
             <div className="grid w-full grid-cols-[repeat(auto-fit,_minmax(150px,_4fr))] gap-16 items-center mt-4">
-                {items === null ? (
-                        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
+                {items === null
+                    ? (
+                        <div className="flex items-center justify-center">
+                            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
+                        </div>
                     ) : (
                         items.map(item =>
                             <div key={item.id} className="flex flex-col h-96">

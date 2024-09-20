@@ -40,24 +40,26 @@ export default function Collection() {
                 <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {sorted_filtered_items === null ? 0 : sorted_filtered_items.length} Items Found </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
-            <div className="flex gap-2">
-                <div>
-                    <Filter
-                        setFilter={setFilterBy}
-                        filterBy={filterBy}
-                        categories={categories}
-                    />
-                    <div className="flex gap-1 -mt-8">
-                        <Tag
-                            type="filter"
-                            toDisplay={filterBy}
-                            setState={setFilterBy}
+            <div className="h-full flex gap-2">
+                <div className="h-auto">
+                    <div className="sticky top-0 z-10">
+                        <Filter
+                            setFilter={setFilterBy}
+                            filterBy={filterBy}
+                            categories={categories}
                         />
-                        <Tag
-                            type="sort"
-                            toDisplay={sortBy}
-                            setState={setSortBy}
-                        />
+                        <div className="flex gap-1 -mt-8">
+                            <Tag
+                                type="filter"
+                                toDisplay={filterBy}
+                                setState={setFilterBy}
+                            />
+                            <Tag
+                                type="sort"
+                                toDisplay={sortBy}
+                                setState={setSortBy}
+                            />
+                        </div>
                     </div>
                 </div>
                 <Grid
