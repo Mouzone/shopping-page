@@ -6,7 +6,9 @@ import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
 // todo: move clear button to clear away all filters and etc, right beneath tags
+// make clear filter button next to srot by
 // todo: remove submit button from price, and do live updating
+// todo: style filter width
 // todo: change styling to pure black and white
 // todo: search bar
 

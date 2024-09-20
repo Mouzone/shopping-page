@@ -28,7 +28,6 @@ export default function Sort({ isActive, setIsActive, setSortBy }) {
     )
 }
 
-// todo: refactor list here
 function SortList({setIsActive, setSortBy}) {
     const types_directions = [
         "alphabetical ascending",
@@ -36,7 +35,7 @@ function SortList({setIsActive, setSortBy}) {
         "price ascending",
         "price descending",
     ]
-    
+
     function onClick(type, direction) {
         return () => {
             setIsActive(false)
