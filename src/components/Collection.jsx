@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import {filter} from "jsdom/lib/jsdom/living/traversal/helpers.js";
 import {Form} from "react-router-dom";
-import {setIsInitial} from "@material-tailwind/react/components/Tabs/TabsContext.js";
 
 export default function Collection() {
     const [ items, setItems ] = useState([])
@@ -42,6 +40,7 @@ export default function Collection() {
     )
 }
 
+// todo: add sort funcitonality
 function Sort({ isActive, setIsActive }) {
     return (
         <div className="flex flex-col font-light self-end ml-auto mr-40 items-center">
@@ -169,8 +168,8 @@ function Filter({setFilter, filterBy}) {
             {/*todo: change stylings so the category term has no extra space to left and right*/}
             {filterBy.category !== "" && (
                 <div
-                    className="text-xs flex bg-blue-200 w-32 truncate ... p-2 rounded justify-center items-center gap-1">
-                    {filterBy.category}
+                    className="flex w-24 p-2 pl-4 pr-4 bg-blue-200 rounded justify-center items-center">
+                    <p className="text-xs w-16 overflow-hidden whitespace-nowrap truncate">{filterBy.category}</p>
                     <button
                         type="button"
                         className="w-5"
