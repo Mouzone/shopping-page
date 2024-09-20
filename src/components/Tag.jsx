@@ -1,12 +1,6 @@
-export default function Tag({type, toDisplay, setState}) {
-    const mapping = {
-        "": "",
-        "alphabetical ascending": "A - Z",
-        "alphabetical descending": "Z - A",
-        "price ascending": "Price ↑",
-        "price descending": "Price ↓",
-    }
+import mapping from "../mapping.js"
 
+export default function Tag({type, toDisplay, setState}) {
     let text = ""
     if (type === "filter") {
         text = toDisplay.category

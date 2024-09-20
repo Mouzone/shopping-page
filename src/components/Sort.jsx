@@ -1,3 +1,5 @@
+import mapping from "../mapping.js";
+
 export default function Sort({ isActive, setIsActive, setSortBy }) {
 
     return (
@@ -28,6 +30,13 @@ export default function Sort({ isActive, setIsActive, setSortBy }) {
 
 // todo: refactor list here
 function SortList({setIsActive, setSortBy}) {
+    const types_directions = [
+        "alphabetical ascending",
+        "alphabetical descending",
+        "price ascending",
+        "price descending",
+    ]
+    
     function onClick(type, direction) {
         return () => {
             setIsActive(false)
@@ -37,30 +46,19 @@ function SortList({setIsActive, setSortBy}) {
 
     return (
         <div className="flex flex-col absolute mt-7 bg-white rounded border border-black pb-2">
-            <button
-                className="hover:underline p-2"
-                onClick={onClick("alphabetical", "ascending")}
-            >
-                A - Z
-            </button>
-            <button
-                className="hover:underline p-2"
-                onClick={onClick("alphabetical", "descending")}
-            >
-                Z - A
-            </button>
-            <button
-                className="hover:underline p-2"
-                onClick={onClick("price", "ascending")}
-            >
-                Price ↑
-            </button>
-            <button
-                className="hover:underline p-2"
-                onClick={onClick("price", "descending")}
-            >
-                Price ↓
-            </button>
+            {
+                types_directions.map(text_direction => {
+                    const [type, direction] = text_direction.split(" ")
+                    return <button
+                        key={text_direction}
+                        className="hover:underline p-2"
+                        onClick={onClick(type, direction)}
+                    >
+                        {mapping[text_direction]}
+                    </button>
+                    }
+                )
+            }
         </div>
     )
 }
