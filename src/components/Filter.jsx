@@ -3,7 +3,7 @@ import {Form} from "react-router-dom";
 
 // the JSON has jewelry as jewelery
 // todo: refactor code
-export default function Filter({setFilter, filterBy}) {
+export default function Filter({setFilter, filterBy, categories}) {
     const [minPriceInput, setMinPriceInput] = useState("")
     const [maxPriceInput, setMaxPriceInput] = useState("")
 
@@ -36,30 +36,29 @@ export default function Filter({setFilter, filterBy}) {
     return (
         <div className="flex flex-col pl-0 p-10 gap-2">
             <h2 className="text-2xl underline"> Categories: </h2>
-            <button
-                className={`self-start ml-3 ${filterBy.category === "men's clothing" ? "font-bold" : "none"}`}
-                onClick={filterOnCategory("men's clothing")}
-            >
-                Men's Clothing
-            </button>
-            <button
-                className={`self-start ml-3 ${filterBy.category === "jewelery" ? "font-bold" : "none"}`}
-                onClick={filterOnCategory("jewelery")}
-            >
-                Jewelry
-            </button>
-            <button
-                className={`self-start ml-3 ${filterBy.category === "electronics" ? "font-bold" : "none"}`}
-                onClick={filterOnCategory("electronics")}
-            >
-                Electronics
-            </button>
-            <button
-                className={`self-start ml-3 ${filterBy.category === "women's clothing" ? "font-bold" : "none"}`}
-                onClick={filterOnCategory("women's clothing")}
-            >
-                Women's Clothing
-            </button>
+            {categories === null ? (
+                    <div className="flex items-center justify-center">
+                        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
+                    </div>
+                ) : (
+                categories.map(category => {
+                    return (
+                        <button
+                            key={category} className={`self-start ml-3 ${filterBy.category === category ? "font-bold" : "none"}`}
+                            onClick={filterOnCategory(category)}
+                        >
+                            {
+                                category === "jewelery"
+                                ? "Jewelry"
+                                : category
+                                    .split(" ")
+                                    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                                    .join(" ")
+                            }
+                        </button>
+                    )
+                })
+            )}
             <h2 className="text-2xl mt-1 underline"> Price Range: </h2>
             <Form className="flex gap-2 text-sm items-center ">
                 <div className="flex gap-1">

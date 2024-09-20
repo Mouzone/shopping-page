@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 
-// todo: search functionality to load elmeents that are searched for
+// todo: search functionality to load elements that are searched for
+// no need for live update, probably use dynamic url segment and add antoher search parameter like "contains"
 export default function NavBar() {
     return (
         <div className="flex gap-6 pt-10 pb-9 pl-32 pr-32 items-end border bg-blue-50">

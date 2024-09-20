@@ -29,7 +29,7 @@ export default function Tag({type, toDisplay, setState}) {
     return (
         text && (<div
             className="flex pr-2 bg-blue-200 rounded justify-center items-center">
-            <p className="text-xs p-2 overflow-hidden whitespace-nowrap truncate">{text}</p>
+            <p className="text-xs p-2 pr-1 overflow-hidden whitespace-nowrap truncate">{text}</p>
             <button
                 type="button"
                 className="w-3"

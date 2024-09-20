@@ -5,11 +5,14 @@ import Grid from "./Grid.jsx";
 import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
-// todo: move clear button
-// todo: add sort tag and remove it on click
+import {filter} from "jsdom/lib/jsdom/living/traversal/helpers.js";
+// todo: move clear button to clear away all filters and etc, right beneath tags
+// todo: remove submit button from price, and do live updating
 // todo: change styling to pure black and white
+// todo: search bar
+
 export default function Collection() {
-    const [ items, setItems ] = useState([])
+    const [ items, setItems ] = useState(null )
     const [ filterBy, setFilterBy ] = useState({
         category: "",
         min_price: 0,
@@ -27,14 +30,14 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
-    // todo: search bar
-    let filtered_items = customFilter(items, filterBy)
-    let sorted_filtered_items = customSort(filtered_items, sortBy)
+    let filtered_items = items === null ? null : customFilter(items, filterBy)
+    let sorted_filtered_items = filtered_items === null ? null : customSort(filtered_items, sortBy)
 
+    const categories = items === null ? null : [...new Set(items.map(item => item.category))]
     return (
-        <div className="flex flex-col pl-32">
+        <div className="flex flex-col p-32 pt-0">
             <div className="flex">
-                <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
+                <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {sorted_filtered_items === null ? 0 : sorted_filtered_items.length} Items Found </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
             <div className="flex gap-2">
@@ -42,6 +45,7 @@ export default function Collection() {
                     <Filter
                         setFilter={setFilterBy}
                         filterBy={filterBy}
+                        categories={categories}
                     />
                     <div className="flex gap-1 -mt-8">
                         <Tag
@@ -56,7 +60,6 @@ export default function Collection() {
                         />
                     </div>
                 </div>
-                {/*todo: move filterby and sortby tags here*/}
                 <Grid
                     items={sorted_filtered_items}
                 />
