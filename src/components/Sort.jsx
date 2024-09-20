@@ -1,10 +1,4 @@
 export default function Sort({ isActive, setIsActive, setSortBy }) {
-    function onClick(type, direction) {
-        return () => {
-            setIsActive(false)
-            setSortBy({type: type, direction: direction})
-        }
-    }
 
     return (
         <div className="flex flex-col font-light self-end ml-auto items-center">
@@ -27,35 +21,46 @@ export default function Sort({ isActive, setIsActive, setSortBy }) {
                 }
             </button>
 
-            { isActive && (
-                <div className="flex flex-col absolute mt-7 bg-white rounded border border-black pb-2">
-                    <button
-                        className="hover:underline p-2"
-                        onClick={onClick("alphabetical", "ascending")}
-                    >
-                        A - Z
-                    </button>
-                    <button
-                        className="hover:underline p-2"
-                        onClick={onClick("alphabetical", "descending")}
-                    >
-                        Z - A
-                    </button>
-                    <button
-                        className="hover:underline p-2"
-                        onClick={onClick("price", "ascending")}
-                    >
-                        Price ↑
-                    </button>
-                    <button
-                        className="hover:underline p-2"
-                        onClick={onClick("price", "descending")}
-                    >
-                        Price ↓
-                    </button>
-                </div>
-            )
-            }
+            { isActive && <SortList setIsActive={setIsActive} setSortBy={setSortBy}/> }
+        </div>
+    )
+}
+
+// todo: refactor list here
+function SortList({setIsActive, setSortBy}) {
+    function onClick(type, direction) {
+        return () => {
+            setIsActive(false)
+            setSortBy({type: type, direction: direction})
+        }
+    }
+
+    return (
+        <div className="flex flex-col absolute mt-7 bg-white rounded border border-black pb-2">
+            <button
+                className="hover:underline p-2"
+                onClick={onClick("alphabetical", "ascending")}
+            >
+                A - Z
+            </button>
+            <button
+                className="hover:underline p-2"
+                onClick={onClick("alphabetical", "descending")}
+            >
+                Z - A
+            </button>
+            <button
+                className="hover:underline p-2"
+                onClick={onClick("price", "ascending")}
+            >
+                Price ↑
+            </button>
+            <button
+                className="hover:underline p-2"
+                onClick={onClick("price", "descending")}
+            >
+                Price ↓
+            </button>
         </div>
     )
 }

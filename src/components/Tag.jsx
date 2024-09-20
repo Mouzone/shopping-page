@@ -17,9 +17,9 @@ export default function Tag({type, toDisplay, setState}) {
     function onClick(type) {
         return type === "filter"
             ? () => setState({
+                ...toDisplay,
                 category: "",
-                min_price: 0,
-                max_price: Infinity,})
+                })
             : () => setState({
                 type: "",
                 direction: ""

@@ -13,16 +13,14 @@ export default function Categories({categories, filterBy, setFilter}) {
             {categories === null ? (
                 <Spinner/>
             ) : (
-                categories.map(category => {
-                    return (
-                        <CategoryButton
-                            key={category}
-                            category={category}
-                            filterOnCategory={filterOnCategory}
-                            isActive={filterBy.category === category}
-                        />
-                    )
-                })
+                categories.map(category =>
+                    <CategoryButton
+                        key={category}
+                        category={category}
+                        filterOnCategory={filterOnCategory}
+                        isActive={filterBy.category === category}
+                    />
+                )
             )}
         </>
     )
