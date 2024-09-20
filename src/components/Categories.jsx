@@ -15,19 +15,12 @@ export default function Categories({categories, filterBy, setFilter}) {
             ) : (
                 categories.map(category => {
                     return (
-                        <button
-                            key={category} className={`self-start ml-3 ${filterBy.category === category ? "font-bold" : "none"}`}
-                            onClick={filterOnCategory(category)}
-                        >
-                            {
-                                category === "jewelery"
-                                    ? "Jewelry"
-                                    : category
-                                        .split(" ")
-                                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-                                        .join(" ")
-                            }
-                        </button>
+                        <CategoryButton
+                            key={category}
+                            category={category}
+                            filterOnCategory={filterOnCategory}
+                            isActive={filterBy.category === category}
+                        />
                     )
                 })
             )}
@@ -35,3 +28,19 @@ export default function Categories({categories, filterBy, setFilter}) {
     )
 }
 
+function CategoryButton({ category, filterOnCategory, isActive}) {
+    let text = category === "jewelery" ? "Jewelry" : category
+    text = text
+        .split(" ")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ")
+
+    return (
+        <button
+            className={`self-start ml-3 ${isActive ? "font-bold" : "none"}`}
+            onClick={filterOnCategory(category)}
+        >
+            {text}
+        </button>
+    )
+}
