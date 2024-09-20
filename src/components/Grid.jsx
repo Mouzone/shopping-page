@@ -3,7 +3,7 @@ import {formatPrice} from "../helper.js";
 export default function Grid({ items }) {
     return (
         <div className="w-full flex flex-col items-center">
-            <div className="grid w-full grid-cols-[repeat(auto-fit,_minmax(150px,_4fr))] gap-16 items-center mt-4">
+            <div className="grid w-full grid-cols-[repeat(auto-fit,_minmax(150px,_4fr))] gap-16 items-center">
                 {items === null
                     ? (
                         <div className="flex items-center justify-center">

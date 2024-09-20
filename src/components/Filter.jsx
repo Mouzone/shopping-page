@@ -34,7 +34,7 @@ export default function Filter({setFilter, filterBy, categories}) {
     }
 
     return (
-        <div className="flex flex-col pl-0 p-10 gap-2">
+        <div className="flex flex-col gap-2">
             <h2 className="text-2xl underline"> Categories: </h2>
             {categories === null ? (
                     <div className="flex items-center justify-center">
