@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Carousel, IconButton } from "@material-tailwind/react";
+import Spinner from "./Spinner.jsx";
+
 // todo: make own carousel element
 export default function Homepage() {
     const [ items, setItems ] = useState([])
@@ -14,9 +16,7 @@ export default function Homepage() {
     return (
         <div className="flex flex-col items-center mt-10">
             {items.length === 0 ? (
-                <div className="flex items-center justify-center">
-                    <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
-                </div>
+                <Spinner/>
             ) : (
                 <>
                     <h2 className="font-bold text-7xl">Any Item</h2>

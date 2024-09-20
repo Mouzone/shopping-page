@@ -1,14 +1,14 @@
-// todo: add spinner when items is loading, not when there are no items in search
 import {formatPrice} from "../helper.js";
+import Spinner from "./Spinner.jsx";
+
+// todo: figure out how to do grid better, when less than 4 items in row, it starts centering weird
 export default function Grid({ items }) {
     return (
         <div className="w-full flex flex-col items-center">
-            <div className="grid w-full grid-cols-[repeat(auto-fit,_minmax(150px,_4fr))] gap-16 items-center">
+            <div className="grid w-full grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))] gap-16 items-center">
                 {items === null
                     ? (
-                        <div className="flex items-center justify-center">
-                            <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
-                        </div>
+                        <Spinner/>
                     ) : (
                         items.map(item =>
                             <div key={item.id} className="flex flex-col h-96">

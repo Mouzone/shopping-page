@@ -5,7 +5,6 @@ import Grid from "./Grid.jsx";
 import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
-import {filter} from "jsdom/lib/jsdom/living/traversal/helpers.js";
 // todo: move clear button to clear away all filters and etc, right beneath tags
 // todo: remove submit button from price, and do live updating
 // todo: change styling to pure black and white
