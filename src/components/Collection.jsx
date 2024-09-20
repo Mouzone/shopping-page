@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import {Form} from "react-router-dom";
 
 // todo: split components into separate files
+// todo: add sort tag and remove it on click
+// todo: reduce font-size of headers on left side
 export default function Collection() {
     const [ items, setItems ] = useState([])
     const [ filterBy, setFilterBy ] = useState({
@@ -21,7 +23,7 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
-    // todo: sort and search bar
+    // todo: search bar
     let filtered_items = filterBy.category === "" ? items : items.filter(item => item.category === filterBy.category)
     filtered_items = filtered_items.filter(item =>
         parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
@@ -39,6 +41,7 @@ export default function Collection() {
                     setFilter={setFilterBy}
                     filterBy={filterBy}
                 />
+                {/*move filterby and sortby tags here*/}
                 <Grid
                     items={sorted_filtered_items}
                 />
@@ -77,6 +80,7 @@ function customSort(list, sortBy) {
 function Sort({ isActive, setIsActive, setSortBy }) {
     function onClick(type, direction) {
         return () => {
+            setIsActive(false)
             setSortBy({type: type, direction: direction})
         }
     }
@@ -224,7 +228,6 @@ function Filter({setFilter, filterBy}) {
                     Clear
                 </button>
             </Form>
-            {/*todo: change stylings so the category term has no extra space to left and right*/}
             {filterBy.category !== "" && (
                 <div
                     className="flex w-24 p-2 pl-4 pr-4 bg-blue-200 rounded justify-center items-center">
@@ -253,7 +256,7 @@ function Grid({ items }) {
                 <div className="grid grid-cols-4 gap-16 items-center mt-4">
                     {items.map(item =>
                         <div key={item.id} className="flex flex-col h-96">
-                            <div className="flex items-center h-72">
+                            <div className="flex items-center justify-center h-72">
                                 <img className="w-40" key={item.id} src={item.image} alt={item.title}/>
                             </div>
                             <div className="flex mt-auto">
