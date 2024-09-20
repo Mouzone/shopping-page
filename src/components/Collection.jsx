@@ -11,8 +11,8 @@ export default function Collection() {
     })
     const [ sortIsActive, setSortIsActive ] = useState(false)
     const [ sortBy, setSortBy ] = useState({
-        sort_type: "",
-        sort_direction: ""
+        type: "",
+        direction: ""
     })
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Collection() {
         <div className="flex flex-col pl-32">
             <div className="flex">
                 <h1 className="pt-10 text-5xl pl-5 font-light text-gray-500"> {filtered_items.length} Items Found </h1>
-                <Sort isActive={sortIsActive} setIsActive={setSortIsActive}/>
+                <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
             <div className="flex gap-2">
                 <Filter
@@ -40,7 +40,7 @@ export default function Collection() {
                     filterBy={filterBy}
                 />
                 <Grid
-                    items={filtered_items}
+                    items={sorted_filtered_items}
                 />
             </div>
         </div>
@@ -54,15 +54,15 @@ function customSort(list, sortBy) {
 
     let do_if_greater = 1
     let do_if_less = -1
-    if (sortBy.sort_direction === "descending") {
+    if (sortBy.direction === "descending") {
         do_if_greater = -1
         do_if_less = 1
     }
 
 
     list.sort((a, b) => {
-            const left = sortBy.type === "alphabetical" ? a.category.toLowerCase() : parseFloat(a.price)
-            const right = sortBy.type === "alphabetical" ? b.category.toLowerCase() : parseFloat(b.price)
+            const left = sortBy.type === "alphabetical" ? a.title.toLowerCase() : parseFloat(a.price)
+            const right = sortBy.type === "alphabetical" ? b.title.toLowerCase() : parseFloat(b.price)
 
             return left === right
                 ? 0
@@ -74,35 +74,60 @@ function customSort(list, sortBy) {
     return list
 }
 
-// todo: add sort funcitonality
-function Sort({ isActive, setIsActive, sortBy, setSortBy }) {
+function Sort({ isActive, setIsActive, setSortBy }) {
+    function onClick(type, direction) {
+        return () => {
+            setSortBy({type: type, direction: direction})
+        }
+    }
+
     return (
-        <div className="flex flex-col font-light self-end ml-auto mr-40 items-center">
-            <h3 className="flex items-center gap-1">
+        <div className="flex flex-col font-light self-end ml-auto mr-32 items-center">
+            <button
+                className="w-15 flex items-center gap-1"
+                onClick={() => setIsActive(!isActive)}
+            >
                 Sort By
-                <button
-                    className="w-4"
-                    onClick={() => setIsActive(!isActive)}
-                >
-                    {isActive
-                        ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-up</title>
-                                <path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"/>
-                            </svg>
-                        ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-down</title>
-                                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                            </svg>
-                        )
-                    }
-                </button>
-            </h3>
+
+                {isActive
+                    ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4"><title>chevron-up</title>
+                            <path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"/>
+                        </svg>
+                    ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4"><title>chevron-down</title>
+                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                        </svg>
+                    )
+                }
+            </button>
+
             { isActive && (
                 <div className="flex flex-col absolute mt-7 bg-white rounded border border-black pb-2">
-                    <button className="hover:underline p-2"> A - Z</button>
-                    <button className="hover:underline p-2"> Z - A</button>
-                    <button className="hover:underline p-2"> Price ↑</button>
-                    <button className="hover:underline p-2"> Price ↓</button>
+                    <button
+                        className="hover:underline p-2"
+                        onClick={onClick("alphabetical", "ascending")}
+                    >
+                        A - Z
+                    </button>
+                    <button
+                        className="hover:underline p-2"
+                        onClick={onClick("alphabetical", "descending")}
+                    >
+                        Z - A
+                    </button>
+                    <button
+                        className="hover:underline p-2"
+                        onClick={onClick("price", "ascending")}
+                    >
+                        Price ↑
+                    </button>
+                    <button
+                        className="hover:underline p-2"
+                        onClick={onClick("price", "descending")}
+                    >
+                        Price ↓
+                    </button>
                 </div>
             )
             }
