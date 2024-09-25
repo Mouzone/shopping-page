@@ -1,9 +1,6 @@
 import {useState} from "react";
 import {Form} from "react-router-dom";
 
-// todo: move clear button to clear away all filters and etc, right beneath tags
-// todo: remove submit button from price, and do live updating
-
 export default function PriceRange({setFilter, filterBy}) {
     function priceOnChange(type) {
         return (e) => {

@@ -5,9 +5,6 @@ import Grid from "./Grid.jsx";
 import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
-// todo: move clear button to clear away all filters and etc, right beneath tags
-// make clear filter button next to srot by
-// todo: remove submit button from price, and do live updating
 // todo: style filter width
 // todo: change styling to pure black and white
 // todo: search bar
@@ -36,7 +33,7 @@ export default function Collection() {
 
     const categories = items === null ? null : [...new Set(items.map(item => item.category))]
     return (
-        <div className="flex flex-col p-32 pt-0">
+        <div className="flex flex-col p-32 pt-0 gap-10">
             <div className="flex sticky top-0 z-10 bg-white pb-5">
                 <h1 className="pt-8 text-5xl pl-5 font-light text-gray-500"> {sorted_filtered_items === null ? 0 : sorted_filtered_items.length} Items Found </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
