@@ -35,7 +35,7 @@ function CategoryButton({ category, filterOnCategory, isActive}) {
 
     return (
         <button
-            className={`self-start ml-3 ${isActive ? "font-bold" : "none"}`}
+            className={`${isActive ? "font-bold" : "none"}`}
             onClick={filterOnCategory(category)}
         >
             {text}

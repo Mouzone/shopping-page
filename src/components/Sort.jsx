@@ -5,7 +5,7 @@ export default function Sort({ isActive, setIsActive, setSortBy }) {
     return (
         <div className="flex flex-col font-light self-end ml-auto items-center">
             <button
-                className="w-15 flex items-center gap-1"
+                className="w-15 flex items-center gap-1 underline"
                 onClick={() => setIsActive(!isActive)}
             >
                 Sort By

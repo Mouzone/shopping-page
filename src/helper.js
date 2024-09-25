@@ -4,6 +4,7 @@ function customFilter(items, filterBy) {
         parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
     return filtered_items
 }
+
 function customSort(list, sortBy) {
     if (sortBy.type === "") {
         return list

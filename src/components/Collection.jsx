@@ -5,7 +5,7 @@ import Grid from "./Grid.jsx";
 import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
-// todo: style filter width
+
 // todo: change styling to pure black and white
 // todo: search bar
 
@@ -32,22 +32,23 @@ export default function Collection() {
     let sorted_filtered_items = filtered_items === null ? null : customSort(filtered_items, sortBy)
 
     const categories = items === null ? null : [...new Set(items.map(item => item.category))]
+    const sorted_categories = categories.toSorted((a, b) => a.length - b.length)
     return (
-        <div className="flex flex-col p-32 pt-0 gap-10">
-            <div className="flex sticky top-0 z-10 bg-white pb-5">
-                <h1 className="pt-8 text-5xl pl-5 font-light text-gray-500"> {sorted_filtered_items === null ? 0 : sorted_filtered_items.length} Items Found </h1>
+        <div className="flex flex-col p-32 pb-0 pt-0">
+            <div className="flex sticky top-0 z-10 bg-white p-5 border-black border border-t-0">
+                <h1 className="pt-8 text-5xl font-light text-gray-500"> {sorted_filtered_items === null ? 0 : sorted_filtered_items.length} Items Found </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
-            <div className="h-full flex gap-10">
-                <div className="h-auto">
-                    <div className="sticky top-28 z-10">
+            <div className="h-full flex gap-10 ">
+                <div className="h-auto border border-black border-t-0 p-5 w-60">
+                    <div className="sticky top-36 z-10">
                         <div>
                             <Filter
                                 setFilter={setFilterBy}
                                 filterBy={filterBy}
-                                categories={categories}
+                                categories={sorted_categories}
                             />
-                            <div className="flex gap-1 mt-2">
+                            <div className="flex gap-2 mt-2  flex-wrap justify-end">
                                 <Tag
                                     type="filter"
                                     toDisplay={filterBy}

@@ -22,7 +22,7 @@ export default function PriceRange({setFilter, filterBy}) {
     return (
         <>
             <h2 className="text-2xl mt-1 underline"> Price Range: </h2>
-            <Form className="flex gap-2 text-sm items-center ">
+            <Form className="flex gap-2 text-sm">
                 <div className="flex gap-1">
                     <PriceInput
                         placeholder="Min"
