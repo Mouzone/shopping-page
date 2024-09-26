@@ -6,8 +6,8 @@ import StarRating from "./StarRating.jsx";
 export default function Item() {
     const { item } = useLoaderData()
     return (
-        <div className="flex p-32 mt-auto gap-20 items-center">
-            <img src={item.image} alt={item.title} className="w-72"/>
+        <div className="flex p-32 mt-auto gap-5 items-center">
+            <img src={item.image} alt={item.title} className="w-72 border border-black p-4"/>
             <div className="flex flex-col gap-3">
                 <div className="flex">
                     <h1 className="text-3xl border border-black p-4 w-auto"> {item.title} </h1>
