@@ -7,29 +7,44 @@ function customFilter(items, filterBy) {
 
 function customSort(list, sortBy) {
     if (sortBy.type === "") {
-        return list
+        return list;
     }
 
-    let do_if_greater = 1
-    let do_if_less = -1
+    let do_if_greater = 1;
+    let do_if_less = -1;
     if (sortBy.direction === "descending") {
-        do_if_greater = -1
-        do_if_less = 1
+        do_if_greater = -1;
+        do_if_less = 1;
     }
-
 
     list.sort((a, b) => {
-        const left = sortBy.type === "alphabetical" ? a.title.toLowerCase() : parseFloat(a.price)
-        const right = sortBy.type === "alphabetical" ? b.title.toLowerCase() : parseFloat(b.price)
+        let left, right;
+
+        switch (sortBy.type) {
+            case "alphabetical":
+                left = a.title.toLowerCase();
+                right = b.title.toLowerCase();
+                break;
+            case "price":
+                left = parseFloat(a.price);
+                right = parseFloat(b.price);
+                break;
+            case "rating":
+                left = parseFloat(a.rating.rate);
+                right = parseFloat(b.rating.rate);
+                break;
+            default:
+                return 0;
+        }
 
         return left === right
             ? 0
             : left > right
                 ? do_if_greater
-                : do_if_less
-    })
+                : do_if_less;
+    });
 
-    return list
+    return list;
 }
 
 function formatPrice(price) {

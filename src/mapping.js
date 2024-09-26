@@ -4,6 +4,8 @@ const mapping = {
     "alphabetical descending": "Z - A",
     "price ascending": "Price ↑",
     "price descending": "Price ↓",
+    "rating ascending": "Rating ↑",
+    "rating descending": "Rating ↓"
 }
 
 export default mapping

@@ -35,6 +35,8 @@ function SortList({setIsActive, setSortBy}) {
         "alphabetical descending",
         "price ascending",
         "price descending",
+        "rating ascending",
+        "rating descending",
     ]
 
     function onClick(type, direction) {
