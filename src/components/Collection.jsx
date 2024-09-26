@@ -6,9 +6,6 @@ import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
 
-// todo: change styling to pure black and white
-// todo: search bar
-
 export default function Collection() {
     const [ items, setItems ] = useState(null )
     const [ filterBy, setFilterBy ] = useState({

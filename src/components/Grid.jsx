@@ -1,8 +1,6 @@
 import {formatPrice} from "../helper.js";
 import Spinner from "./Spinner.jsx";
 
-// todo: move spinner outside of grid
-// todo: change heart to full black svg
 export default function Grid({ items }) {
     return (
         <div className="w-full flex flex-col items-center pt-5">
@@ -13,7 +11,7 @@ export default function Grid({ items }) {
                         items.map(item =>
                             <div key={item.id} className="flex flex-col h-92 border border-black">
                                 <div className="flex items-center justify-center h-72">
-                                    <img className="w-40" key={item.id} src={item.image} alt={item.title}/>
+                                    <img className="w-40" src={item.image} alt={item.title}/>
                                 </div>
                                 <div className="bg-black text-white p-4">
                                     <div className="flex justify-between mt-auto">

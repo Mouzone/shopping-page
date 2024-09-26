@@ -39,4 +39,10 @@ function formatPrice(price) {
     return price.toFixed(2);
 }
 
-export {customFilter, customSort, formatPrice }
+function getItem(id){
+    return fetch('https://fakestoreapi.com/products')
+            .then(res => res.json())
+            .then(data => data.find(entry => entry.id === id) || null)
+}
+
+export {customFilter, customSort, formatPrice, getItem}

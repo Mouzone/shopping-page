@@ -1,7 +1,8 @@
 import {Link} from "react-router-dom";
 
 // todo: search functionality to load elements that are searched for
-// no need for live update, probably use dynamic url segment and add antoher search parameter like "contains"
+// show max 5 entries beneath search bar that are clickable
+// if press enter then use dynamic url segment and add it as a filter term for searchBy and filter results
 export default function NavBar() {
     return (
         <div className="flex gap-6 pt-10 pb-9 pl-32 pr-32 items-end border bg-black text-white">
