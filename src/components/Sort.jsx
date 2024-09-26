@@ -1,5 +1,6 @@
 import mapping from "../mapping.js";
 
+// todo: sort by rating
 export default function Sort({ isActive, setIsActive, setSortBy }) {
 
     return (
