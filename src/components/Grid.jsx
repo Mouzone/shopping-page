@@ -9,7 +9,7 @@ export default function Grid({ items }) {
             <div className="w-full flex flex-col items-center pt-5">
                 {items === null
                     ? <Spinner/>
-                    : <div className="grid w-full grid-cols-4 gap-8 items-center">
+                    : <div className="grid w-full grid-cols-4 gap-5">
                         {
                             items.map(item =>
                                 <Link key={item.id} to={`/item/${item.id}`} className="block">

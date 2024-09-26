@@ -1,9 +1,27 @@
 import {Link} from "react-router-dom";
-
+import {useEffect, useState} from "react";
+import {formatPrice} from "../helper.js";
 // todo: search functionality to load elements that are searched for
-// show max 5 entries beneath search bar that are clickable
 // if press enter then use dynamic url segment and add it as a filter term for searchBy and filter results
 export default function NavBar() {
+    const [ searchBy, setSearchBy ] = useState("")
+    const [ items, setItems ] = useState(null )
+
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products')
+            .then(res => res.json())
+            .then(data => setItems(data))
+    }, [])
+
+    function onChange() {
+        return (e) => {
+            setSearchBy(e.target.value)
+        }
+    }
+
+    const searched_items = items === null ? null : items.filter(item => item.title.includes(searchBy)
+        || item.title.toLowerCase().includes(searchBy.toLowerCase()))
+
     return (
         <div className="flex gap-6 pt-10 pb-9 pl-32 pr-32 items-end border bg-black text-white">
             <h1 className="font-extrabold text-6xl">
@@ -21,13 +39,31 @@ export default function NavBar() {
             >
                 Collection
             </Link>
-            <input
-                aria-label="search"
-                placeholder="Search"
-                className=" rounded-full px-5 ml-auto h-9 w-40"
-            />
+            <div className="ml-auto">
+                <input
+                    aria-label="search"
+                    placeholder="Search"
+                    className=" rounded-full px-5 h-9 w-40 text-black"
+                    value={searchBy}
+                    onChange={onChange()}
+                />
+                <div className="absolute z-10 text-black border border-b-0 border-black">
+                    { ( items !== null && searchBy !== "") && searched_items.slice(0,3).map(item => (
+                        <Link key={item.id} to={`/item/${item.id}`} className="bg-white w-72 flex p-4 border-b border-black gap-3 items-center"
+                              onClick={() => setSearchBy("")}>
+                            <img src={item.image} alt={item.id} className="w-20"/>
+                            <div className="flex flex-col gap-2 text-lg ">
+                                <p className="line-clamp-2 font-bold"> { item.title } </p>
+                                <p> ${ formatPrice(item.price) } </p>
+                            </div>
+                        </Link>
+                    )
+                    )}
+                </div>
+            </div>
             <button className="flex items-center gap-1 cursor-pointer text-lg text-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-red-500"><title>Favorite</title>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-red-500">
+                    <title>Favorite</title>
                     <path
                         d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
                 </svg>

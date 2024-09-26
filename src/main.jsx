@@ -8,7 +8,9 @@ import Collection from './components/Collection.jsx'
 import Item, { loader as itemLoader } from './components/Item.jsx'
 
 import './index.css'
-
+// todo: make website responsive
+// change columns for grid and make margins more responsive
+// change img widths for screen width
 const router = createBrowserRouter([
     {
         path: "/",

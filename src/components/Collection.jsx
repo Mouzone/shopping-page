@@ -32,11 +32,11 @@ export default function Collection() {
     const sorted_categories = categories === null ? null : categories.sort((a, b) => a.length - b.length)
     return (
         <div className="flex flex-col p-32 pb-0 pt-0">
-            <div className="flex sticky top-0 z-10 bg-white p-5 border-black border border-t-0">
+            <div className="flex sticky top-0 z-1 bg-white p-5 border-black border border-t-0 pt-0">
                 <h1 className="pt-8 text-5xl font-light text-gray-500"> {sorted_filtered_items === null ? 0 : sorted_filtered_items.length} Items Found </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
-            <div className="h-full flex gap-10 ">
+            <div className="h-full flex gap-5 ">
                 <div className="h-auto border border-black border-t-0 p-5 w-60">
                     <div className="sticky top-36 z-10">
                         <div>

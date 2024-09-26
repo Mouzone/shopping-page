@@ -12,7 +12,6 @@ export default function PriceRange({setFilter, filterBy}) {
             } else if (value === "" && type === "max_price") {
                 value = Infinity
             }
-            console.log(parseFloat(value))
             setFilter({
                 ...filterBy,
                 [type]: parseFloat(value)
