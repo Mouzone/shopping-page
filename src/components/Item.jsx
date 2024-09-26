@@ -9,15 +9,19 @@ export default function Item() {
         <div className="flex p-32 mt-auto gap-20 items-center">
             <img src={item.image} alt={item.title} className="w-72"/>
             <div className="flex flex-col gap-3">
-                <h1 className="text-3xl"> {item.title} </h1>
-                <div className="flex gap-1 text-lg">
-                    <h3> {item.rating.rate} </h3>
-                    <StarRating rating={item.rating.rate} color="black"/>
-                    <h3> {item.rating.count} ratings </h3>
+                <div className="flex">
+                    <h1 className="text-3xl border border-black p-4 w-auto"> {item.title} </h1>
                 </div>
-                <h2 className="-mt-2 text-lg font-bold"> ${formatPrice(item.price)} </h2>
-                <p> {item.description} </p>
-                <div className="flex gap-3 items-center">
+                <p className="bg-black text-white text-lg p-4"> {item.description} </p>
+                <div className="flex gap-2">
+                    <h2 className="text-2xl font-bold border border-black p-4"> ${formatPrice(item.price)} </h2>
+                    <div className="flex gap-1 text-2xl border border-black p-4">
+                        <h3> {item.rating.rate} </h3>
+                        <StarRating rating={item.rating.rate} color="black"/>
+                        <h3> {item.rating.count} ratings </h3>
+                    </div>
+                </div>
+                <div className="flex gap-3 items-center text-lg">
                     <input
                         placeholder="Amt"
                         className="w-12 border-b border-black text-center"
