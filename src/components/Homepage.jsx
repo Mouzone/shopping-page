@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Carousel, IconButton } from "@material-tailwind/react";
 import Spinner from "./Spinner.jsx";
+import { Link } from "react-router-dom"
 
 // todo: make own carousel element
 export default function Homepage() {
@@ -12,7 +13,6 @@ export default function Homepage() {
             .then(data => setItems(data))
     }, [])
 
-    // todo: add links for each item so clicking on item brings to its page
     return (
         <div className="flex flex-col items-center mt-10">
             {items.length === 0 ? (
@@ -92,11 +92,14 @@ function CustomCarousel({ items }) {
     >
         {
             items.map(item =>
-                <img
-                    key={item.id}
-                    src={item.image}
-                    alt={item.title}
-                />)
+                <Link key={item.id} to={`/item/${item.id}`} className="block">
+                    <img
+                        key={item.id}
+                        src={item.image}
+                        alt={item.title}
+                    />
+                </Link>
+            )
         }
     </Carousel>
 }
