@@ -1,18 +1,18 @@
 import {formatPrice} from "../helper.js";
 import Spinner from "./Spinner.jsx";
 
-// todo: figure out how to do grid better, when less than 4 items in row, it starts centering weird
+// todo: move spinner outside of grid
 // todo: change heart to full black svg
 export default function Grid({ items }) {
     return (
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full flex flex-col items-center pt-5">
             <div className="grid w-full grid-cols-4 gap-8 items-center">
                 {items === null
                     ? (
                         <Spinner/>
                     ) : (
                         items.map(item =>
-                            <div key={item.id} className="flex flex-col h-96">
+                            <div key={item.id} className="flex flex-col h-92 border border-black">
                                 <div className="flex items-center justify-center h-72">
                                     <img className="w-40" key={item.id} src={item.image} alt={item.title}/>
                                 </div>

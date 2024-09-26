@@ -32,7 +32,7 @@ export default function Collection() {
     let sorted_filtered_items = filtered_items === null ? null : customSort(filtered_items, sortBy)
 
     const categories = items === null ? null : [...new Set(items.map(item => item.category))]
-    const sorted_categories = categories.toSorted((a, b) => a.length - b.length)
+    const sorted_categories = categories === null ? null : categories.sort((a, b) => a.length - b.length)
     return (
         <div className="flex flex-col p-32 pb-0 pt-0">
             <div className="flex sticky top-0 z-10 bg-white p-5 border-black border border-t-0">
