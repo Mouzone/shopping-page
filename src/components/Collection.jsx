@@ -6,6 +6,7 @@ import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
 
+// todo: filter by rating
 export default function Collection() {
     const [ items, setItems ] = useState(null )
     const [ filterBy, setFilterBy ] = useState({

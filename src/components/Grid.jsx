@@ -1,6 +1,8 @@
 import {formatPrice} from "../helper.js";
+import StarRating from "./StarRating.jsx"
 import Spinner from "./Spinner.jsx";
 
+// todo: move heart to top right with add to cart button
 export default function Grid({ items }) {
     return (
         <div className="w-full flex flex-col items-center pt-5">
@@ -24,9 +26,12 @@ export default function Grid({ items }) {
                                             </svg>
                                         </button>
                                     </div>
-                                    <h2 className="font-bold">
-                                        ${formatPrice(item.price)}
-                                    </h2>
+                                    <div className="flex justify-between">
+                                        <StarRating rating={item.rating.rate} color="white"/>
+                                        <h2 className="font-bold">
+                                            ${formatPrice(item.price)}
+                                        </h2>
+                                    </div>
                                 </div>
                             </div>
                         )}
