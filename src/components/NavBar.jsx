@@ -1,36 +1,42 @@
 import {Link, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import {formatPrice} from "../helper.js";
-// todo: search functionality to load elements that are searched for
-// if press enter then use dynamic url segment and add it as a filter term for searchBy and filter results
+
 export default function NavBar({ setSearchBy }) {
+    const [ isVisible, setIsVisible ] = useState(true)
     const [ items, setItems ] = useState(null )
     const [ localSearchBy, setLocalSearchBy ] = useState("")
     const navigate = useNavigate()
+    const ref = useRef(null)
 
     useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside)
         fetch('https://fakestoreapi.com/products')
             .then(res => res.json())
             .then(data => setItems(data))
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
     }, [])
 
-
-    function onChange() {
-        return (e) => {
-            setLocalSearchBy(e.target.value)
-
+    const handleClickOutside = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) {
+            setIsVisible(false)
         }
     }
 
-    function onKeyDown() {
-        return (e) => {
-            if (e.key === "Enter"){
-                setSearchBy(e.target.value)
-                setLocalSearchBy("")
-                navigate('/collection')
-            }
+    const onChange = (e) => {
+        setLocalSearchBy(e.target.value)
+    }
+
+    const onKeyDown = (e) => {
+        if (e.key === "Enter"){
+            setSearchBy(e.target.value)
+            setLocalSearchBy("")
+            navigate('/collection')
         }
     }
+
 
     const searched_items = items === null ? null : items.filter(item => item.title.includes(localSearchBy)
         || item.title.toLowerCase().includes(localSearchBy.toLowerCase()))
@@ -52,28 +58,33 @@ export default function NavBar({ setSearchBy }) {
             >
                 Collection
             </Link>
-            <div className="ml-auto">
+            <div className="ml-auto" ref={ref}>
                 <input
                     aria-label="search"
                     placeholder="Search"
                     className=" rounded-full px-5 h-9 w-40 text-black"
                     value={localSearchBy}
-                    onChange={onChange()}
-                    onKeyDown={onKeyDown()}
+                    onChange={onChange}
+                    onKeyDown={onKeyDown}
+                    onSelect={() => setIsVisible(true)}
                 />
-                <div className="absolute z-10 text-black border border-b-0 border-black">
-                    { ( items !== null && localSearchBy !== "") && searched_items.slice(0,3).map(item => (
-                        <Link key={item.id} to={`/item/${item.id}`} className="bg-white w-72 flex p-4 border-b border-black gap-3 items-center"
-                              onClick={() => setLocalSearchBy("")}>
-                            <img src={item.image} alt={item.id} className="w-20"/>
-                            <div className="flex flex-col gap-2 text-lg ">
-                                <p className="line-clamp-2 font-bold"> { item.title } </p>
-                                <p> ${ formatPrice(item.price) } </p>
-                            </div>
-                        </Link>
-                    )
-                    )}
-                </div>
+                { isVisible && (
+                    <div className="absolute z-10 text-black border border-b-0 border-black">
+                        {(items !== null && localSearchBy !== "") && searched_items.slice(0, 3).map(item => (
+                                <Link key={item.id} to={`/item/${item.id}`}
+                                      className="bg-white w-72 flex p-4 border-b border-black gap-3 items-center"
+                                      onClick={() => setLocalSearchBy("")}>
+                                    <img src={item.image} alt={item.id} className="w-20"/>
+                                    <div className="flex flex-col gap-2 text-lg ">
+                                        <p className="line-clamp-2 font-bold"> {item.title} </p>
+                                        <p> ${formatPrice(item.price)} </p>
+                                    </div>
+                                </Link>
+                            )
+                        )}
+                    </div>
+                )
+                }
             </div>
             <button className="flex items-center gap-1 cursor-pointer text-lg text-xl">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-red-500">
@@ -84,7 +95,8 @@ export default function NavBar({ setSearchBy }) {
                 {0}
             </button>
             <button className="flex items-center gap-1 cursor-pointer -ml-3 text-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-white"><title>cart</title>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-white">
+                    <title>cart</title>
                     <path
                         d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/>
                 </svg>
