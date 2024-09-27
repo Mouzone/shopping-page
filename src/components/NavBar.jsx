@@ -1,10 +1,12 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {formatPrice} from "../helper.js";
 // todo: search functionality to load elements that are searched for
 // if press enter then use dynamic url segment and add it as a filter term for searchBy and filter results
-export default function NavBar({ searchBy, setSearchBy }) {
+export default function NavBar({ setSearchBy }) {
     const [ items, setItems ] = useState(null )
+    const [ localSearchBy, setLocalSearchBy ] = useState("")
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -12,15 +14,26 @@ export default function NavBar({ searchBy, setSearchBy }) {
             .then(data => setItems(data))
     }, [])
 
-    // todo: use local vairable here, once press enter pipe the actual filter
+
     function onChange() {
         return (e) => {
-            setSearchBy(e.target.value)
+            setLocalSearchBy(e.target.value)
+
         }
     }
 
-    const searched_items = items === null ? null : items.filter(item => item.title.includes(searchBy)
-        || item.title.toLowerCase().includes(searchBy.toLowerCase()))
+    function onKeyDown() {
+        return (e) => {
+            if (e.key === "Enter"){
+                setSearchBy(e.target.value)
+                setLocalSearchBy("")
+                navigate('/collection')
+            }
+        }
+    }
+
+    const searched_items = items === null ? null : items.filter(item => item.title.includes(localSearchBy)
+        || item.title.toLowerCase().includes(localSearchBy.toLowerCase()))
 
     return (
         <div className="flex gap-6 pt-10 pb-9 pl-32 pr-32 items-end border bg-black text-white">
@@ -44,13 +57,14 @@ export default function NavBar({ searchBy, setSearchBy }) {
                     aria-label="search"
                     placeholder="Search"
                     className=" rounded-full px-5 h-9 w-40 text-black"
-                    value={searchBy}
+                    value={localSearchBy}
                     onChange={onChange()}
+                    onKeyDown={onKeyDown()}
                 />
                 <div className="absolute z-10 text-black border border-b-0 border-black">
-                    { ( items !== null && searchBy !== "") && searched_items.slice(0,3).map(item => (
+                    { ( items !== null && localSearchBy !== "") && searched_items.slice(0,3).map(item => (
                         <Link key={item.id} to={`/item/${item.id}`} className="bg-white w-72 flex p-4 border-b border-black gap-3 items-center"
-                              onClick={() => setSearchBy("")}>
+                              onClick={() => setLocalSearchBy("")}>
                             <img src={item.image} alt={item.id} className="w-20"/>
                             <div className="flex flex-col gap-2 text-lg ">
                                 <p className="line-clamp-2 font-bold"> { item.title } </p>

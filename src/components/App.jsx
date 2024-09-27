@@ -11,7 +11,7 @@ function App() {
     const [ searchBy, setSearchBy ] = useState("")
     return (
     <>
-        <NavBar searchBy={searchBy} setSearchBy={setSearchBy}/>
+        <NavBar setSearchBy={setSearchBy}/>
         <SearchContext.Provider value={{ searchBy, setSearchBy }}>
             <Outlet/>
         </SearchContext.Provider>
