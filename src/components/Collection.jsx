@@ -25,7 +25,10 @@ export default function Collection() {
         fetch('https://fakestoreapi.com/products')
             .then(res => res.json())
             .then(data => setItems(data))
-    }, [])
+        return () => {
+            setSearchBy("")
+        }
+    }, [setSearchBy])
 
     const filtered_items = items === null ? null : customFilter(items, filterBy)
     const sorted_filtered_items = filtered_items === null ? null : customSort(filtered_items, sortBy)
