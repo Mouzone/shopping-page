@@ -35,20 +35,27 @@ export default function Item() {
                         className="w-12 border-b border-black text-center"
                     />
                     <button className="bg-black text-white rounded p-2"> Add to Cart</button>
-                    <Favorite setLiked={setLiked}/>
+                    <Favorite liked={liked} setLiked={setLiked} id={item.id}/>
                 </div>
             </div>
         </div>
     )
 }
 
-// todo: set onClick function add to liked, which should update navbar
-// make sure it doesn't rerender page
-function Favorite({liked, setLiked}) {
-    const [ fillColor, setFillColor ] = useState("black")
+function Favorite({liked, setLiked, id}) {
+    const [ fillColor, setFillColor ] = useState(
+        liked.find(curr_id => curr_id === id) ? "red" : "black"
+    )
+
     const onClick = () => {
         setFillColor(prevColor => prevColor === "black" ? "red" : "black")
+        if (liked.find(curr_id => curr_id === id)) {
+            setLiked([...liked.filter(curr_id => curr_id !== id)])
+        } else{
+            setLiked([...liked, id])
+        }
     }
+
     return (
         <button className="flex items-center gap-1 border p-2 rounded border-black text-lg" onClick={onClick}>
             Favorite
