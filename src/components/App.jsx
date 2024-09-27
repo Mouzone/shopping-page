@@ -16,7 +16,7 @@ function App() {
     return (
     <>
         <NavBar setSearchBy={setSearchBy} liked={liked} setShowFavorites={setShowFavorites}/>
-        <ParamsContext.Provider value={{ searchBy, setSearchBy, liked, setLiked, showFavorites }}>
+        <ParamsContext.Provider value={{ searchBy, setSearchBy, liked, setLiked, showFavorites, setShowFavorites }}>
             <Outlet/>
         </ParamsContext.Provider>
     </>

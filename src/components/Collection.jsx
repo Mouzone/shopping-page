@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {customSort, customFilter} from "../helper.js";
+import {getRelevantItems} from "../helper.js";
 import {useParams} from "./App.jsx";
 
 import Grid from "./Grid.jsx";
@@ -19,7 +19,7 @@ export default function Collection() {
         type: "",
         direction: ""
     })
-    const { searchBy, setSearchBy, liked, showFavorites } = useParams()
+    const { searchBy, setSearchBy, liked, showFavorites, setShowFavorites } = useParams()
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -27,15 +27,11 @@ export default function Collection() {
             .then(data => setItems(data))
         return () => {
             setSearchBy("")
+            setShowFavorites(false)
         }
-    }, [setSearchBy])
+    }, [setSearchBy, setShowFavorites])
 
-    // todo: properly filter liked_tems
-    // const liked_items = items === null ? null :  items.filter(item => liked.find(item.id))
-    const filtered_items = items === null ? null : customFilter(items, filterBy)
-    const sorted_filtered_items = filtered_items === null ? null : customSort(filtered_items, sortBy)
-    const relevant_items = sorted_filtered_items === null ? null : sorted_filtered_items.filter(item => item.title.includes(searchBy)
-        || item.title.toLowerCase().includes(searchBy.toLowerCase()))
+    const relevant_items = getRelevantItems(items, showFavorites, liked, filterBy, sortBy, searchBy)
 
     const categories = items === null ? null : [...new Set(items.map(item => item.category))]
     const sorted_categories = categories === null ? null : categories.sort((a, b) => a.length - b.length)
@@ -43,7 +39,7 @@ export default function Collection() {
     return (
         <div className="flex flex-col p-32 pb-0 pt-0">
             <div className="flex sticky top-0 z-1 bg-white p-5 border-black border border-t-0 pt-0">
-                <h1 className="pt-8 text-5xl font-light text-gray-500"> {sorted_filtered_items === null ? 0 : sorted_filtered_items.length} Items Found </h1>
+                <h1 className="pt-8 text-5xl font-light text-gray-500"> {relevant_items === null ? 0 : relevant_items.length} Items Found </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
             <div className="h-full flex gap-5 ">

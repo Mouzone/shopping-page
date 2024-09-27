@@ -105,7 +105,7 @@ function Favorites({ liked, setShowFavorites}) {
     }
 
     return (
-        <Link to={"/collection/"} className="flex items-center gap-1 cursor-pointer text-xl"
+        <Link to={"/collection"} className="flex items-center gap-1 cursor-pointer text-xl"
                 onClick={onClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-red-500">
                 <title>Favorite</title>
