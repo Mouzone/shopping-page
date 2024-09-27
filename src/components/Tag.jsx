@@ -6,18 +6,24 @@ export default function Tag({type, toDisplay, setState}) {
         text = toDisplay.category
     } else if (type === "sort") {
         text = mapping[toDisplay.type + " " + toDisplay.direction]
+    } else if (type === "search") {
+        text = toDisplay
     }
 
     function onClick(type) {
-        return type === "filter"
-            ? () => setState({
+        if (type === "filter") {
+            return () => setState({
                 ...toDisplay,
                 category: "",
-                })
-            : () => setState({
+            })
+        } else if (type === "sort") {
+            return () => setState({
                 type: "",
                 direction: ""
             })
+        } else if (type === "search") {
+            return () => setState("")
+        }
     }
 
     return (

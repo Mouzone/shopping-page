@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {customSort, customFilter} from "../helper.js";
+import {useSearch} from "./App.jsx";
 
 import Grid from "./Grid.jsx";
 import Sort from "./Sort.jsx";
@@ -18,6 +19,7 @@ export default function Collection() {
         type: "",
         direction: ""
     })
+    const { searchBy, setSearchBy } =useSearch()
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -25,11 +27,15 @@ export default function Collection() {
             .then(data => setItems(data))
     }, [])
 
-    let filtered_items = items === null ? null : customFilter(items, filterBy)
-    let sorted_filtered_items = filtered_items === null ? null : customSort(filtered_items, sortBy)
+    const filtered_items = items === null ? null : customFilter(items, filterBy)
+    const sorted_filtered_items = filtered_items === null ? null : customSort(filtered_items, sortBy)
+    const relevant_items = sorted_filtered_items === null ? null : sorted_filtered_items.filter(item => item.title.includes(searchBy)
+        || item.title.toLowerCase().includes(searchBy.toLowerCase()))
+
 
     const categories = items === null ? null : [...new Set(items.map(item => item.category))]
     const sorted_categories = categories === null ? null : categories.sort((a, b) => a.length - b.length)
+
     return (
         <div className="flex flex-col p-32 pb-0 pt-0">
             <div className="flex sticky top-0 z-1 bg-white p-5 border-black border border-t-0 pt-0">
@@ -56,12 +62,17 @@ export default function Collection() {
                                     toDisplay={sortBy}
                                     setState={setSortBy}
                                 />
+                                <Tag
+                                    type="search"
+                                    toDisplay={searchBy}
+                                    setState={setSearchBy}
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
                 <Grid
-                    items={sorted_filtered_items}
+                    items={relevant_items}
                 />
             </div>
         </div>

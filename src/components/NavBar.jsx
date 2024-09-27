@@ -3,8 +3,7 @@ import {useEffect, useState} from "react";
 import {formatPrice} from "../helper.js";
 // todo: search functionality to load elements that are searched for
 // if press enter then use dynamic url segment and add it as a filter term for searchBy and filter results
-export default function NavBar() {
-    const [ searchBy, setSearchBy ] = useState("")
+export default function NavBar({ searchBy, setSearchBy }) {
     const [ items, setItems ] = useState(null )
 
     useEffect(() => {
@@ -13,6 +12,7 @@ export default function NavBar() {
             .then(data => setItems(data))
     }, [])
 
+    // todo: use local vairable here, once press enter pipe the actual filter
     function onChange() {
         return (e) => {
             setSearchBy(e.target.value)
