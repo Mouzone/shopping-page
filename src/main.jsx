@@ -11,6 +11,7 @@ import './index.css'
 // todo: make website responsive
 // change columns for grid and make margins more responsive
 // change img widths for screen width
+// todo: take items out and use it in context
 const router = createBrowserRouter([
     {
         path: "/",

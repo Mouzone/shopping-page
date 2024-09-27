@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {customSort, customFilter} from "../helper.js";
-import {useSearch} from "./App.jsx";
+import {useParams} from "./App.jsx";
 
 import Grid from "./Grid.jsx";
 import Sort from "./Sort.jsx";
@@ -19,7 +19,7 @@ export default function Collection() {
         type: "",
         direction: ""
     })
-    const { searchBy, setSearchBy } =useSearch()
+    const { searchBy, setSearchBy } = useParams()
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
