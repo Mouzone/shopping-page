@@ -6,7 +6,6 @@ const ParamsContext = createContext()
 
 export const useParams = () => useContext(ParamsContext)
 
-// todo: refactor items out of navbar and collection
 function App() {
     const [ items, setItems ] = useState(null )
     const [ searchBy, setSearchBy ] = useState("")
@@ -14,6 +13,8 @@ function App() {
     const [ cart, setCart ] = useState({}) // store independent ids and quantity
 
     // todo: figure out how to load items only on collection and favorites, but not on home
+    // Note: here can use one fetch call, since not many items, and due to how db api was written
+    // and can't fetch favorites from db based on user
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
             .then(res => res.json())
