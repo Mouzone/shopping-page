@@ -15,7 +15,7 @@ export default function Item() {
                 const { [id]: removed, ...newCart } = cart
                 setCart(newCart)
             } else{
-                setCart({...cart, [id]: 0})
+                setCart({...cart, [id]: 1})
             }
         }
     }

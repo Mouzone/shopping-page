@@ -10,7 +10,7 @@ function App() {
     const [ items, setItems ] = useState(null )
     const [ searchBy, setSearchBy ] = useState("")
     const [ liked, setLiked ] = useState([1, 2, 3, 4, 5, 6, 7]) // store independent ids
-    const [ cart, setCart ] = useState({1: 0, 2:3, 3: 4}) // store independent ids and quantity
+    const [ cart, setCart ] = useState({1: 1, 2:3, 3: 4}) // store independent ids and quantity
 
     // todo: figure out how to load items only on collection and favorites, but not on home
     // Note: here can use one fetch call, since not many items, and due to how db api was written
