@@ -38,10 +38,10 @@ export default function Collection() {
                 <h1 className="pt-8 text-5xl font-light text-gray-500"> {relevant_items === null ? 0 : relevant_items.length} Items Found </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
-            <div className="h-full flex gap-5 ">
+            <div className="flex gap-5">
                 <div className="h-auto border border-black border-t-0 p-5 w-60">
                     <div className="sticky top-36 z-10">
-                        <div>
+                        <div className="h-[70vh]">
                             <Filter
                                 setFilter={setFilterBy}
                                 filterBy={filterBy}

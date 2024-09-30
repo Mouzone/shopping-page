@@ -3,9 +3,10 @@ import StarRating from "./StarRating.jsx"
 import Spinner from "./Spinner.jsx";
 import { Link } from "react-router-dom"
 
+// todo: center spinner
 export default function Grid({ items }) {
     return (
-            <div className="w-full flex flex-col items-center pt-5">
+            <div className="w-full flex flex-col pt-5 items-center justify-items-center">
                 {items === null
                     ? <Spinner/>
                     : <div className="grid w-full grid-cols-4 gap-5">

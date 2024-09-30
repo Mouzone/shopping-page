@@ -14,21 +14,24 @@ export default function Homepage() {
     }, [])
 
     return (
-        <div className="flex flex-col items-center mt-10">
+        <>
             {items.length === 0 ? (
-                <Spinner/>
+                <div className="flex h-[70%] items-center justify-center">
+                    <Spinner/>
+                </div>
             ) : (
-                <>
+                <div className="flex flex-col items-center mt-10">
                     <h2 className="font-bold text-7xl">Any Item</h2>
                     <h3 className="font-bold text-4xl mt-4">Cheap Price</h3>
-                    <CustomCarousel items={items} />
-                </>
-            )}
-        </div>
+                    <CustomCarousel items={items}/>
+                </div>
+            )
+            }
+        </>
     )
 }
 
-function CustomCarousel({ items }) {
+function CustomCarousel({items}) {
     return <Carousel
         className="rounded-xl w-64 items-center ml-auto mr-auto"
         navigation={({ setActiveIndex, activeIndex, length }) => (

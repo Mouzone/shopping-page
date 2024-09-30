@@ -22,12 +22,12 @@ function App() {
     }, [])
 
     return (
-    <>
-        <NavBar setSearchBy={setSearchBy} liked={liked}/>
-        <ParamsContext.Provider value={{ items, searchBy, setSearchBy, liked, setLiked}}>
-            <Outlet/>
-        </ParamsContext.Provider>
-    </>
+        <div className="h-screen">
+            <NavBar setSearchBy={setSearchBy} liked={liked}/>
+            <ParamsContext.Provider value={{ items, searchBy, setSearchBy, liked, setLiked}}>
+                <Outlet/>
+            </ParamsContext.Provider>
+        </div>
     )
 }
 
