@@ -4,8 +4,14 @@ import {formatPrice} from "../helper.js";
 
 export default function Checkout() {
     const { items, cart, setCart } = useParams()
-    // todo: if cart is null terminate and return element and end quickly
-    console.log(cart)
+    if (items === null) {
+        return (
+            <div className="h-[70vh] w-[100vw] flex items-center justify-center">
+                <Spinner/>
+            </div>
+        )
+    }
+
     const total = Object.keys(cart).reduce(
         (total, curr) => total + items[curr-1].price * cart[curr],
         0,
@@ -30,13 +36,7 @@ export default function Checkout() {
 
     // todo: rewrite logic when cart is empty
     // todo: link to item page when clicking on cart
-    return (
-        items === null
-            ? (<div className="h-[70vh] w-[100vw] flex items-center justify-center">
-                    <Spinner/>
-                </div>
-            )
-            : cart.length === 0
+    return (cart.length === 0
                 ? (<div className="h-[50vh] w-[100vw] flex items-center justify-center">
                         <p className="text-center pt-4 bold text-lg"> Looking Empty... </p>
                     </div>
@@ -53,8 +53,8 @@ export default function Checkout() {
                                                 return (
                                                     <div key={id} className="flex justify-between">
                                                         <div
-                                                            className="truncate w-96"> {quantity} x {items[id - 1].title}</div>
-                                                        <div> ${formatPrice(quantity * items[id - 1].price)}</div>
+                                                            className="truncate w-96"> {items[id - 1].title}</div>
+                                                        <div> {quantity} x ${formatPrice(quantity * items[id - 1].price)}</div>
                                                     </div>
                                                 )
                                             }
