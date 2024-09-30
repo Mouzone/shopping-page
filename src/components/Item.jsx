@@ -6,8 +6,19 @@ import {useParams} from "./App.jsx";
 import FavoriteButton from "./FavoriteButton.jsx"
 
 export default function Item() {
-    const { liked, setLiked } = useParams()
+    const { liked, setLiked, cart, setCart } = useParams()
     const { item } = useLoaderData()
+
+    function onClick(id) {
+        return () => {
+            if (cart.find(curr_id => curr_id === id)) {
+                setCart([...cart.filter(curr_id => curr_id !== id)])
+            } else{
+                setCart([...cart, id])
+            }
+        }
+    }
+
     return (
         <div className="flex p-32 mt-auto gap-5 items-center">
             <img src={item.image} alt={item.title} className="w-72 border border-black p-4"/>
@@ -25,11 +36,9 @@ export default function Item() {
                     </div>
                 </div>
                 <div className="flex gap-3 items-center text-lg">
-                    <input
-                        placeholder="Amt"
-                        className="w-12 border-b border-black text-center"
-                    />
-                    <button className="bg-black text-white rounded p-2"> Add to Cart</button>
+                    <button className="bg-black text-white rounded p-2" onClick={onClick(item.id)}>
+                        { cart.find(curr_id => curr_id === item.id) ? "Remove from Cart" : "Add to Cart" }
+                    </button>
                     <FavoriteButton liked={liked} setLiked={setLiked} id={item.id}/>
                 </div>
             </div>
