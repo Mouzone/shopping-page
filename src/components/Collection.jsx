@@ -7,6 +7,7 @@ import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
 
+// todo: when searching on another page, not properly loading search results and tags
 export default function Collection() {
     const { items, searchBy, setSearchBy, liked } = useParams()
 
@@ -33,9 +34,12 @@ export default function Collection() {
     const sorted_categories = categories === null ? null : categories.sort((a, b) => a.length - b.length)
 
     return (
-        <div className="flex flex-col p-32 pb-0 pt-0">
+        <div className="flex flex-col p-10 pb-0 pt-0">
             <div className="flex sticky top-0 z-1 bg-white p-5 border-black border border-t-0 pt-0">
-                <h1 className="pt-8 text-5xl font-light text-gray-500"> {relevant_items === null ? 0 : relevant_items.length} Items Found </h1>
+                <h1 className="pt-8 text-xl font-light text-gray-500">
+                    <span className="text-black font-bold text-5xl"> Collection </span>
+                    {relevant_items === null ? 0 : relevant_items.length} Items
+                </h1>
                 <Sort isActive={sortIsActive} setIsActive={setSortIsActive} setSortBy={setSortBy}/>
             </div>
             <div className="flex gap-5">

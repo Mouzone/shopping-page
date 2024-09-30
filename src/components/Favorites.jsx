@@ -4,7 +4,6 @@ import {formatPrice} from "../helper.js";
 import Spinner from "./Spinner.jsx";
 import {Link} from "react-router-dom";
 
-// todo: center looking emtpy and spinner to aligned center
 export default function Favorites() {
     const { items, liked, setLiked } = useParams()
 
@@ -21,10 +20,12 @@ export default function Favorites() {
 
     return (
         <>
-            <h1 className="text-center font-bold text-5xl p-4 mt-5"> Favorites </h1>
+            <div className="flex p-10 pb-5">
+                <h1 className="font-bold text-5xl border border-black p-4 bg-black text-white"> Favorites </h1>
+            </div>
             {
                 items === null
-                    ? ( <div className="h-[70vh] w-[100vw] flex items-center justify-center">
+                    ? (<div className="h-[70vh] w-[100vw] flex items-center justify-center">
                             <Spinner/>
                         </div>
                     )
@@ -33,7 +34,7 @@ export default function Favorites() {
                                 <p className="text-center pt-4 bold text-lg"> Looking Empty... </p>
                             </div>
                         )
-                        : <div className="grid grid-cols-3 gap-4 p-4 pt-0 items-center">
+                        : <div className="grid grid-cols-3 gap-4 p-10 pt-0 items-center">
                             {
                                 liked.map(id => {
                                     return (

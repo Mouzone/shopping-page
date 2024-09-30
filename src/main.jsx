@@ -7,6 +7,7 @@ import Homepage from './components/Homepage.jsx'
 import Collection from './components/Collection.jsx'
 import Favorites from "./components/Favorites.jsx";
 import Item, { loader as itemLoader } from './components/Item.jsx'
+import Checkout from "./components/Checkout.jsx";
 
 import './index.css'
 // todo: make website responsive
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: "favorites",
                 element: <Favorites/>,
+            },
+            {
+                path: "checkout",
+                element: <Checkout/>,
             },
             {
                 // todo: add a base page for item/ that redirects to collection

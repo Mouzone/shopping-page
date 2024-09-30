@@ -15,6 +15,7 @@ function App() {
     // todo: figure out how to load items only on collection and favorites, but not on home
     // Note: here can use one fetch call, since not many items, and due to how db api was written
     // and can't fetch favorites from db based on user
+    // todo: load items in NavBar from here
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
             .then(res => res.json())

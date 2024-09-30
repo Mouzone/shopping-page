@@ -1,7 +1,7 @@
 import mapping from "../mapping.js";
+import {useEffect, useRef, useState} from "react";
 
 export default function Sort({ isActive, setIsActive, setSortBy }) {
-
     return (
         <div className="flex flex-col font-light self-end ml-auto items-center">
             <button
@@ -29,6 +29,8 @@ export default function Sort({ isActive, setIsActive, setSortBy }) {
 }
 
 function SortList({setIsActive, setSortBy}) {
+    const ref = useRef(null)
+
     const types_directions = [
         "alphabetical ascending",
         "alphabetical descending",
@@ -38,6 +40,19 @@ function SortList({setIsActive, setSortBy}) {
         "rating descending",
     ]
 
+    const handleClickOutside = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) {
+            setIsActive(false)
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [handleClickOutside])
+
     function onClick(type, direction) {
         return () => {
             setIsActive(false)
@@ -46,7 +61,7 @@ function SortList({setIsActive, setSortBy}) {
     }
 
     return (
-        <div className="flex flex-col absolute mt-7 bg-white rounded border border-black pb-2">
+        <div ref={ref} className="flex flex-col absolute mt-7 bg-white rounded border border-black pb-2">
             {
                 types_directions.map(text_direction => {
                     const [type, direction] = text_direction.split(" ")
