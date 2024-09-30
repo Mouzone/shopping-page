@@ -8,7 +8,8 @@ import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
 
 export default function Collection() {
-    const [ items, setItems ] = useState(null )
+    const { items, searchBy, setSearchBy, liked } = useParams()
+
     const [ filterBy, setFilterBy ] = useState({
         category: "",
         min_price: 0,
@@ -19,12 +20,8 @@ export default function Collection() {
         type: "",
         direction: ""
     })
-    const { searchBy, setSearchBy, liked } = useParams()
 
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
-            .then(res => res.json())
-            .then(data => setItems(data))
         return () => {
             setSearchBy("")
         }
