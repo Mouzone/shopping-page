@@ -51,7 +51,7 @@ export default function Favorites() {
                                                     <div className="flex justify-between">
                                                         <StarRating rating={items[id - 1].rating.rate} color="white"/>
                                                         <h2 className="font-bold">
-                                                            ${formatPrice(items[id].price)}
+                                                            ${formatPrice(items[id - 1].price)}
                                                         </h2>
                                                     </div>
                                                 </div>

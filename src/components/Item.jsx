@@ -11,10 +11,11 @@ export default function Item() {
 
     function onClick(id) {
         return () => {
-            if (cart.find(curr_id => curr_id === id)) {
-                setCart([...cart.filter(curr_id => curr_id !== id)])
+            if (id in cart) {
+                const { [id]: removed, ...newCart } = cart
+                setCart(newCart)
             } else{
-                setCart([...cart, id])
+                setCart({...cart, [id]: 0})
             }
         }
     }
@@ -37,7 +38,7 @@ export default function Item() {
                 </div>
                 <div className="flex gap-3 items-center text-lg">
                     <button className="bg-black text-white rounded p-2" onClick={onClick(item.id)}>
-                        { cart.find(curr_id => curr_id === item.id) ? "Remove from Cart" : "Add to Cart" }
+                        { item.id in cart ? "Remove from Cart" : "Add to Cart" }
                     </button>
                     <FavoriteButton liked={liked} setLiked={setLiked} id={item.id}/>
                 </div>
