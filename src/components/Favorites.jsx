@@ -21,7 +21,7 @@ export default function Favorites() {
 
     return (
         <>
-            <h1 className="text-center font-bold text-5xl p-4"> Favorites </h1>
+            <h1 className="text-center font-bold text-5xl p-4 mt-5"> Favorites </h1>
             {
                 items === null
                     ? ( <div className="h-[70vh] w-[100vw] flex items-center justify-center">
