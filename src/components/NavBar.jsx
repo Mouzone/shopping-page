@@ -2,7 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState, useRef} from "react";
 import {formatPrice} from "../helper.js";
 
-export default function NavBar({ setSearchBy, liked, setShowFavorites }) {
+export default function NavBar({ setSearchBy, liked }) {
     const [ isVisible, setIsVisible ] = useState(true)
     const [ items, setItems ] = useState(null )
     const [ localSearchBy, setLocalSearchBy ] = useState("")
@@ -86,7 +86,7 @@ export default function NavBar({ setSearchBy, liked, setShowFavorites }) {
                 )
                 }
             </div>
-            <Favorites liked={liked} setShowFavorites={setShowFavorites}/>
+            <FavoritesIcon liked={liked}/>
             <button className="flex items-center gap-1 cursor-pointer -ml-3 text-xl">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-white">
                     <title>cart</title>
@@ -99,14 +99,9 @@ export default function NavBar({ setSearchBy, liked, setShowFavorites }) {
     )
 }
 
-function Favorites({ liked, setShowFavorites}) {
-    const onClick = () => {
-        setShowFavorites(true)
-    }
-
+function FavoritesIcon({ liked }) {
     return (
-        <Link to={"/collection"} className="flex items-center gap-1 cursor-pointer text-xl"
-                onClick={onClick}>
+        <Link to={"/favorites"} className="flex items-center gap-1 cursor-pointer text-xl">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 fill-red-500">
                 <title>Favorite</title>
                 <path

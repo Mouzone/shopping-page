@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './components/App.jsx'
 import Homepage from './components/Homepage.jsx'
 import Collection from './components/Collection.jsx'
+import Favorites from "./components/Favorites.jsx";
 import Item, { loader as itemLoader } from './components/Item.jsx'
 
 import './index.css'
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "collection",
                 element: <Collection/>,
+            },
+            {
+                path: "favorites",
+                element: <Favorites/>,
             },
             {
                 // todo: add a base page for item/ that redirects to collection

@@ -47,13 +47,12 @@ function customSort(list, sortBy) {
     return list;
 }
 
-function getRelevantItems(items, showFavorites, liked, filterBy, sortBy, searchBy) {
+function getRelevantItems(items, liked, filterBy, sortBy, searchBy) {
     if (items === null) {
         return null
     }
 
-    const favorite_items = showFavorites ? items.filter(item => liked.find(id => id === item.id)): items
-    const filtered_items = customFilter(favorite_items, filterBy)
+    const filtered_items = customFilter(items, filterBy)
     const sorted_filtered_items = customSort(filtered_items, sortBy)
     const relevant_items = sorted_filtered_items.filter(item => item.title.includes(searchBy)
         || item.title.toLowerCase().includes(searchBy.toLowerCase()))

@@ -19,7 +19,7 @@ export default function Collection() {
         type: "",
         direction: ""
     })
-    const { searchBy, setSearchBy, liked, showFavorites, setShowFavorites } = useParams()
+    const { searchBy, setSearchBy, liked } = useParams()
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
@@ -27,11 +27,10 @@ export default function Collection() {
             .then(data => setItems(data))
         return () => {
             setSearchBy("")
-            setShowFavorites(false)
         }
-    }, [setSearchBy, setShowFavorites])
+    }, [setSearchBy])
 
-    const relevant_items = getRelevantItems(items, showFavorites, liked, filterBy, sortBy, searchBy)
+    const relevant_items = getRelevantItems(items, liked, filterBy, sortBy, searchBy)
 
     const categories = items === null ? null : [...new Set(items.map(item => item.category))]
     const sorted_categories = categories === null ? null : categories.sort((a, b) => a.length - b.length)
