@@ -24,9 +24,15 @@ export default function Favorites() {
             <h1 className="text-center font-bold text-5xl p-4"> Favorites </h1>
             {
                 items === null
-                    ? <Spinner/>
+                    ? ( <div className="h-[70vh] w-[100vw] flex items-center justify-center">
+                            <Spinner/>
+                        </div>
+                    )
                     : liked.length === 0
-                        ? <p className="text-center pt-4 bold text-lg"> Looking Empty... </p>
+                        ? (<div className="h-[50vh] w-[100vw] flex items-center justify-center">
+                                <p className="text-center pt-4 bold text-lg"> Looking Empty... </p>
+                            </div>
+                        )
                         : <div className="grid grid-cols-3 gap-4 p-4 pt-0 items-center">
                             {
                                 liked.map(id => {

@@ -9,7 +9,7 @@ export const useParams = () => useContext(ParamsContext)
 function App() {
     const [ items, setItems ] = useState(null )
     const [ searchBy, setSearchBy ] = useState("")
-    const [ liked, setLiked ] = useState([1, 5, 7]) // store independent ids
+    const [ liked, setLiked ] = useState([1, 2, 3, 4, 5, 6, 7]) // store independent ids
     const [ cart, setCart ] = useState({}) // store independent ids and quantity
 
     // todo: figure out how to load items only on collection and favorites, but not on home
