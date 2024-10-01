@@ -14,7 +14,6 @@ import ErrorPage from "./components/ErrorPage.jsx";
 // todo: make website responsive
 // change columns for grid and make margins more responsive
 // change img widths for screen width
-// todo: add error pages
 const router = createBrowserRouter([
     {
         path: "/",
