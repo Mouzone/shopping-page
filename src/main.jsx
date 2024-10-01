@@ -11,8 +11,6 @@ import Checkout from "./components/Checkout.jsx";
 
 import './index.css'
 import ErrorPage from "./components/ErrorPage.jsx";
-// todo: fix priceRange bug and typing
-// todo: rewrite PropTypes.obect using PropTypes.exact for items
 // todo: make website responsive
 // change columns for grid and make margins more responsive
 // change img widths for screen width

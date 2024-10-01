@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 import PropTypes from "prop-types";
 
 export default function Grid({ items }) {
-    console.log(items)
     return (
             <div className="w-full flex flex-col pt-5">
                 {items === null

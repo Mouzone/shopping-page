@@ -3,7 +3,6 @@ import { Carousel, IconButton } from "@material-tailwind/react";
 import Spinner from "./Spinner.jsx";
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types";
-import Grid from "./Grid.jsx";
 
 // todo: make own carousel element
 export default function Homepage() {
