@@ -1,6 +1,7 @@
 import {useParams} from "./App.jsx";
 import Spinner from "./Spinner.jsx";
 import {formatPrice} from "../helper.js";
+import {Link} from "react-router-dom";
 
 export default function Checkout() {
     const {items, cart, setCart} = useParams()
@@ -28,13 +29,13 @@ export default function Checkout() {
     }
 
     function onClick(id) {
-        return () => {
+        return (e) => {
+            e.preventDefault()
             const {[id]: removed, ...rest} = cart
             setCart({...rest})
         }
     }
 
-    // todo: link to item page when clicking on cart
     return (
         <div>
             <div className="flex p-20 pb-10 pt-10">
@@ -72,7 +73,7 @@ export default function Checkout() {
                                         Object.keys(cart).map(id => {
                                             id = id - 1
                                             return (
-                                                <div key={id}
+                                                <Link to={`/item/${id+1}`} key={id+1}
                                                      className="flex gap-5 border border-black p-4 relative">
                                                     <img src={items[id].image} alt={items[id].title}
                                                          className="w-40 justify-center border border-black p-2"/>
@@ -100,7 +101,7 @@ export default function Checkout() {
                                                         <path
                                                             d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/>
                                                     </svg>
-                                                </div>
+                                                </Link>
                                             )
                                         })
                                     }
