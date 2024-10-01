@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 export default function Checkout() {
     const {items, cart, setCart} = useParams()
+    console.log(cart)
     if (items === null) {
         return (
             <div className="h-[70vh] w-[100vw] flex items-center justify-center">
@@ -34,6 +35,23 @@ export default function Checkout() {
             e.preventDefault()
             const {[id]: removed, ...rest} = cart
             setCart({...rest})
+        }
+    }
+
+    function decrementQuantity(id) {
+        return (e) => {
+            e.preventDefault()
+            const {[id]: curr_quantity, ...rest} = cart
+            const new_quantity = curr_quantity === 1 ? curr_quantity : curr_quantity - 1
+            setCart({...rest, [id]: new_quantity})
+        }
+    }
+
+    function incrementQuantity(id) {
+        return (e) => {
+            e.preventDefault()
+            const {[id]: curr_quantity, ...rest} = cart
+            setCart({...rest, [id]: curr_quantity + 1})
         }
     }
 
@@ -84,22 +102,32 @@ export default function Checkout() {
                                                         <h3 className="text-lg font-bold"> Price:
                                                             ${formatPrice(items[id].price)} </h3>
 
-                                                        <div className="flex gap-1 items-center">
+                                                        <div className="flex gap-3 items-center">
                                                             <h1 className="font-bold text-lg"> Quantity: </h1>
-                                                            <input
-                                                                placeholder="Amt"
-                                                                value={cart[id + 1]}
-                                                                onChange={onChange(id + 1)}
-                                                                onClick={(e)=>e.preventDefault()}
-                                                                className="border border-black rounded w-9 text-center"
-                                                            />
+                                                            <div className="flex gap-2">
+                                                                <button className={`font-bold ${cart[id + 1] === 1 ? "opacity-50" : "opacity-100"}`}
+                                                                        onClick={decrementQuantity(id + 1)}>
+                                                                    -
+                                                                </button>
+                                                                <input
+                                                                    placeholder="Amt"
+                                                                    value={cart[id + 1]}
+                                                                    onChange={onChange(id + 1)}
+                                                                    onClick={(e) => e.preventDefault()}
+                                                                    className="border border-black rounded w-9 text-center"
+                                                                />
+                                                                <button className="font-bold" onClick={incrementQuantity(id + 1)}>
+                                                                    +
+                                                                </button>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                          className="top-0 right-0 w-10 absolute p-2"
                                                          onClick={onClick(id + 1)}
                                                     >
-                                                        <title>close-thick</title>
+                                                    <title>close-thick</title>
                                                         <path
                                                             d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/>
                                                     </svg>
