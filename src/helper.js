@@ -1,7 +1,7 @@
 function customFilter(items, filterBy) {
     let filtered_items = filterBy.category === "" ? items : items.filter(item => item.category === filterBy.category)
     filtered_items = filtered_items.filter(item =>
-        parseFloat(item.price) >= filterBy.min_price && parseFloat(item.price) <= filterBy.max_price)
+        parseFloat(item.price) >= filterBy.minPrice && parseFloat(item.price) <= filterBy.maxPrice)
     return filtered_items
 }
 

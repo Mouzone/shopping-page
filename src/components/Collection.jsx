@@ -31,7 +31,6 @@ export default function Collection() {
 
     const categories = items === null ? null : [...new Set(items.map(item => item.category))]
     const sorted_categories = categories === null ? null : categories.sort((a, b) => a.length - b.length)
-
     return (
         <div className="flex flex-col p-10 pb-0 pt-0">
             <div className="flex sticky top-0 z-1 bg-white p-5 border-black border border-t-0 pt-0">
