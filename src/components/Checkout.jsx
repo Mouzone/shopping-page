@@ -20,6 +20,7 @@ export default function Checkout() {
 
     function onChange(id) {
         return (e) => {
+            e.preventDefault()
             const inputValue = e.target.value;
             // Remove non-digit characters and allow negative integers
             if (/^-?\d*$/.test(inputValue)) {
@@ -86,10 +87,11 @@ export default function Checkout() {
                                                         <div className="flex gap-1 items-center">
                                                             <h1 className="font-bold text-lg"> Quantity: </h1>
                                                             <input
-                                                                placeholder="Quantity"
+                                                                placeholder="Amt"
                                                                 value={cart[id + 1]}
                                                                 onChange={onChange(id + 1)}
-                                                                className="border border-black rounded w-7 text-center"
+                                                                onClick={(e)=>e.preventDefault()}
+                                                                className="border border-black rounded w-9 text-center"
                                                             />
                                                         </div>
                                                     </div>
