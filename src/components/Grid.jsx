@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import PropTypes from "prop-types";
 
 export default function Grid({ items }) {
+    console.log(items)
     return (
             <div className="w-full flex flex-col pt-5">
                 {items === null
@@ -40,8 +41,20 @@ export default function Grid({ items }) {
     )
 }
 
-// todo: rewrite PropTypes.obect using PropTypes.exact
 Grid.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.object)
+    items: PropTypes.arrayOf(PropTypes.exact({
+        category: PropTypes.string.isRequired,
+        // description is not used in Grid, but in Item
+        description: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        // url
+        image: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.exact({
+            rate: PropTypes.number.isRequired,
+            count: PropTypes.number.isRequired,
+        }),
+        title: PropTypes.string.isRequired,
+    }))
 }
 

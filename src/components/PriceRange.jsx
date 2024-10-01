@@ -1,9 +1,7 @@
-import {useState} from "react";
 import {Form} from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function PriceRange({setFilter, filterBy}) {
-    console.log(filterBy)
     function priceOnChange(type) {
         return (e) => {
             // if type is min_value and value==="" set value to 0

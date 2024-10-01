@@ -3,6 +3,7 @@ import { Carousel, IconButton } from "@material-tailwind/react";
 import Spinner from "./Spinner.jsx";
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types";
+import Grid from "./Grid.jsx";
 
 // todo: make own carousel element
 export default function Homepage() {
@@ -108,7 +109,19 @@ function CustomCarousel({items}) {
     </Carousel>
 }
 
-// todo: rewrite PropTypes.obect using PropTypes.exact
 CustomCarousel.propTypes = {
-    items: PropTypes.arrayOf(PropTypes.object)
+    items: PropTypes.arrayOf(PropTypes.exact({
+        category: PropTypes.string.isRequired,
+        // description is not used in Grid, but in Item
+        description: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        // url
+        image: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        rating: PropTypes.exact({
+            rate: PropTypes.number.isRequired,
+            count: PropTypes.number.isRequired,
+        }),
+        title: PropTypes.string.isRequired,
+    }))
 }
