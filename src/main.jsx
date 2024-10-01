@@ -10,42 +10,46 @@ import Item, { loader as itemLoader } from './components/Item.jsx'
 import Checkout from "./components/Checkout.jsx";
 
 import './index.css'
+import ErrorPage from "./components/ErrorPage.jsx";
 // todo: make website responsive
 // change columns for grid and make margins more responsive
 // change img widths for screen width
-// todo: take items out and use it in context
 // todo: add error pages
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App/>,
+        errorElement: <ErrorPage/>,
         children: [
             {
-                index: true,
-                element: <Homepage/>
-            },
-            {
-                path: "home",
-                element: <Homepage/>,
-            },
-            {
-                path: "collection",
-                element: <Collection/>,
-            },
-            {
-                path: "favorites",
-                element: <Favorites/>,
-            },
-            {
-                path: "checkout",
-                element: <Checkout/>,
-            },
-            {
-                // todo: add a base page for item/ that redirects to collection
-                // todo: have spinner while :itemId loads
-                path:"collection/:itemId",
-                element: <Item/>,
-                loader: itemLoader,
+                errorElement: <ErrorPage/>,
+                children: [
+                    {
+                        index: true,
+                        element: <Homepage/>
+                    },
+                    {
+                        path: "home",
+                        element: <Homepage/>,
+                    },
+                    {
+                        path: "collection",
+                        element: <Collection/>,
+                    },
+                    {
+                        path: "favorites",
+                        element: <Favorites/>,
+                    },
+                    {
+                        path: "checkout",
+                        element: <Checkout/>,
+                    },
+                    {
+                        path:"collection/:itemId",
+                        element: <Item/>,
+                        loader: itemLoader,
+                    }
+                ]
             }
         ],
     },

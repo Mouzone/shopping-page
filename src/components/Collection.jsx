@@ -7,7 +7,6 @@ import Sort from "./Sort.jsx";
 import Filter from "./Filter.jsx";
 import Tag from "./Tag.jsx";
 
-// todo: when searching on another page, not properly loading search results and tags
 export default function Collection() {
     const { items, searchBy, setSearchBy, liked } = useParams()
 
