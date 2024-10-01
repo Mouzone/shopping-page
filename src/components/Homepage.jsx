@@ -95,7 +95,7 @@ function CustomCarousel({items}) {
     >
         {
             items.map(item =>
-                <Link key={item.id} to={`/item/${item.id}`} className="block">
+                <Link key={item.id} to={`/collection/${item.id}`} className="block">
                     <img
                         key={item.id}
                         src={item.image}

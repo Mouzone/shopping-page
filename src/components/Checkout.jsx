@@ -73,7 +73,7 @@ export default function Checkout() {
                                         Object.keys(cart).map(id => {
                                             id = id - 1
                                             return (
-                                                <Link to={`/item/${id+1}`} key={id+1}
+                                                <Link to={`/collection/${id+1}`} key={id+1}
                                                      className="flex gap-5 border border-black p-4 relative">
                                                     <img src={items[id].image} alt={items[id].title}
                                                          className="w-40 justify-center border border-black p-2"/>

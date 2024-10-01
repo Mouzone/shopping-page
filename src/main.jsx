@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             {
                 // todo: add a base page for item/ that redirects to collection
                 // todo: have spinner while :itemId loads
-                path:"item/:itemId",
+                path:"collection/:itemId",
                 element: <Item/>,
                 loader: itemLoader,
             }

@@ -38,7 +38,7 @@ export default function Favorites() {
                             {
                                 liked.map(id => {
                                     return (
-                                        <Link key={id} to={`/item/${id}`} className="block">
+                                        <Link key={id} to={`/collection/${id}`} className="block">
                                             <div className="flex flex-col h-92 border border-black">
                                                 <div className="flex items-center justify-center h-72 relative">
                                                     <img className="w-40" src={items[id - 1].image} alt={items[id - 1].title}/>
