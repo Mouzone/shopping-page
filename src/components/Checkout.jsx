@@ -104,8 +104,8 @@ export default function Checkout() {
 
                                                         <div className="flex gap-3 items-center">
                                                             <h1 className="font-bold text-lg"> Quantity: </h1>
-                                                            <div className="flex gap-2">
-                                                                <button className={`font-bold ${cart[id + 1] === 1 ? "opacity-50" : "opacity-100"}`}
+                                                            <div className="flex">
+                                                                <button className={`font-bold text-xl p-2 pl-0 pt-0 pb-0 ${cart[id + 1] === 1 ? "opacity-50" : "opacity-100"}`}
                                                                         onClick={decrementQuantity(id + 1)}>
                                                                     -
                                                                 </button>
@@ -116,7 +116,7 @@ export default function Checkout() {
                                                                     onClick={(e) => e.preventDefault()}
                                                                     className="border border-black rounded w-9 text-center"
                                                                 />
-                                                                <button className="font-bold" onClick={incrementQuantity(id + 1)}>
+                                                                <button className="font-bold text-xl p-2 pt-0 pb-0" onClick={incrementQuantity(id + 1)}>
                                                                     +
                                                                 </button>
                                                             </div>
