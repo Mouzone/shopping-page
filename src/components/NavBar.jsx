@@ -1,6 +1,7 @@
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState, useRef} from "react";
 import {formatPrice} from "../helper.js";
+import PropTypes from "prop-types";
 
 export default function NavBar({ setSearchBy, liked, cart }) {
     const [ isVisible, setIsVisible ] = useState(true)
@@ -110,4 +111,14 @@ function FavoritesIcon({ liked }) {
             {liked.length}
         </Link>
     )
+}
+
+NavBar.propTypes = {
+    setSearchBy: PropTypes.func.isRequired,
+    liked: PropTypes.arrayOf(PropTypes.number).isRequired,
+    cart: PropTypes.objectOf(PropTypes.number).isRequired,
+}
+
+FavoritesIcon.propTypes = {
+    liked: PropTypes.arrayOf(PropTypes.number).isRequired,
 }

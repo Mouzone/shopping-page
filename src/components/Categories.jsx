@@ -1,4 +1,5 @@
 import Spinner from "./Spinner.jsx";
+import PropTypes from "prop-types";
 
 export default function Categories({categories, filterBy, setFilter}) {
     function filterOnCategory(category) {
@@ -41,4 +42,20 @@ function CategoryButton({ category, filterOnCategory, isActive}) {
             {text}
         </button>
     )
+}
+
+Categories.propTypes = {
+    categories: PropTypes.arrayOf(PropTypes.string),
+    filterBy: PropTypes.exact({
+        category: PropTypes.string.isRequired,
+        minPrice: PropTypes.number.isRequired,
+        maxPrice: PropTypes.number.isRequired,
+    }),
+    setFilter: PropTypes.func.isRequired,
+}
+
+CategoryButton.propTypes = {
+    category: PropTypes.string.isRequired,
+    filterOnCategory: PropTypes.func.isRequired,
+    isActive: PropTypes.bool.isRequired,
 }

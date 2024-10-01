@@ -1,5 +1,6 @@
 import mapping from "../mapping.js";
 import {useEffect, useRef, useState} from "react";
+import PropTypes from "prop-types";
 
 export default function Sort({ isActive, setIsActive, setSortBy }) {
     return (
@@ -77,4 +78,15 @@ function SortList({setIsActive, setSortBy}) {
             }
         </div>
     )
+}
+
+Sort.propTypes = {
+    isActive: PropTypes.bool.isRequired,
+    setIsActive: PropTypes.func.isRequired,
+    setSortBy: PropTypes.func.isRequired,
+}
+
+SortList.propTypes = {
+    setIsActive: PropTypes.func.isRequired,
+    setSortBy: PropTypes.func.isRequired,
 }

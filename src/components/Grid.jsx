@@ -2,6 +2,7 @@ import {formatPrice} from "../helper.js";
 import StarRating from "./StarRating.jsx"
 import Spinner from "./Spinner.jsx";
 import { Link } from "react-router-dom"
+import PropTypes from "prop-types";
 
 export default function Grid({ items }) {
     return (
@@ -14,7 +15,7 @@ export default function Grid({ items }) {
                     : <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
                         {
                             items.map(item =>
-                                <Link key={item.id} to={`/item/${item.id}`} className="block">
+                                <Link key={item.id} to={`/collection/${item.id}`} className="block">
                                     <div className="flex flex-col border border-black">
                                         <div className="flex items-center justify-center h-72">
                                             <img className="lg:w-40 md:w-20 sw-10" src={item.image} alt={item.title}/>
@@ -39,5 +40,8 @@ export default function Grid({ items }) {
     )
 }
 
-
+// todo: rewrite PropTypes.obect using PropTypes.exact
+Grid.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object)
+}
 

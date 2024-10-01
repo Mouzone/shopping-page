@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Carousel, IconButton } from "@material-tailwind/react";
 import Spinner from "./Spinner.jsx";
 import { Link } from "react-router-dom"
+import PropTypes from "prop-types";
 
 // todo: make own carousel element
 export default function Homepage() {
@@ -105,4 +106,9 @@ function CustomCarousel({items}) {
             )
         }
     </Carousel>
+}
+
+// todo: rewrite PropTypes.obect using PropTypes.exact
+CustomCarousel.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object)
 }

@@ -12,8 +12,8 @@ export default function Collection() {
 
     const [ filterBy, setFilterBy ] = useState({
         category: "",
-        min_price: 0,
-        max_price: Infinity,
+        minPrice: 0,
+        maxPrice: Infinity,
     })
     const [ sortIsActive, setSortIsActive ] = useState(false)
     const [ sortBy, setSortBy ] = useState({

@@ -1,4 +1,5 @@
 import mapping from "../mapping.js"
+import PropTypes from "prop-types";
 
 export default function Tag({type, toDisplay, setState}) {
     let text = ""
@@ -43,4 +44,11 @@ export default function Tag({type, toDisplay, setState}) {
             </div>
         )
     )
+}
+
+Tag.propTypes = {
+    type: PropTypes.string.isRequired,
+    // toDisplay can be object, string
+    toDisplay: PropTypes.any.isRequired,
+    setState: PropTypes.func.isRequired,
 }

@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Form} from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function PriceRange({setFilter, filterBy}) {
     function priceOnChange(type) {
@@ -7,9 +8,9 @@ export default function PriceRange({setFilter, filterBy}) {
             // if type is min_value and value==="" set value to 0
             // if type is max_value and value ==="" set value to Infinity
             let value = e.target.value.replace(/[^0-9.]/g, "")
-            if (value === "" && type === "min_price") {
+            if (value === "" && type === "minPrice") {
                 value = 0
-            } else if (value === "" && type === "max_price") {
+            } else if (value === "" && type === "maxPrice") {
                 value = Infinity
             }
             setFilter({
@@ -25,14 +26,14 @@ export default function PriceRange({setFilter, filterBy}) {
                 <div className="flex gap-1">
                     <PriceInput
                         placeholder="Min"
-                        priceInput={filterBy.min_price}
-                        onChange={priceOnChange("min_price")}
+                        priceInput={filterBy.minPrice}
+                        onChange={priceOnChange("minPrice")}
                     />
                     <p className="self-center"> - </p>
                     <PriceInput
                         placeholder="Max"
-                        priceInput={filterBy.max_price}
-                        onChange={priceOnChange("max_price")}
+                        priceInput={filterBy.maxPrice}
+                        onChange={priceOnChange("maxPrice")}
                     />
                 </div>
             </Form>
@@ -55,4 +56,19 @@ function PriceInput({placeholder, priceInput, onChange}) {
             onChange={onChange}
         />
     )
+}
+
+PriceRange.propTypes = {
+    setFilter: PropTypes.func.isRequired,
+    filterBy: PropTypes.exact({
+        category: PropTypes.string.isRequired,
+        minPrice: PropTypes.number.isRequired,
+        maxPrice: PropTypes.number.isRequired,
+    }),
+}
+
+PriceInput.propTypes = {
+    placeholder: PropTypes.string.isRequired,
+    priceInput: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
 }

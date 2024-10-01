@@ -1,4 +1,5 @@
 import {useState} from "react";
+import PropTypes from "prop-types";
 
 export default function FavoriteButton({liked, setLiked, id}) {
     const [ fillColor, setFillColor ] = useState(
@@ -24,4 +25,10 @@ export default function FavoriteButton({liked, setLiked, id}) {
             </svg>
         </button>
     )
+}
+
+FavoriteButton.propTypes = {
+    liked: PropTypes.arrayOf(PropTypes.number).isRequired,
+    setLiked: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
 }

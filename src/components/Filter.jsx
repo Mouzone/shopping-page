@@ -1,5 +1,6 @@
 import Categories from "./Categories.jsx";
 import PriceRange from "./PriceRange.jsx"
+import PropTypes from "prop-types";
 // the JSON has jewelry as jewelery
 export default function Filter({setFilter, filterBy, categories}) {
     return (
@@ -16,4 +17,14 @@ export default function Filter({setFilter, filterBy, categories}) {
         </div>
 
     )
+}
+
+Filter.propTypes = {
+    setFilter: PropTypes.func.isRequired,
+    filterBy: PropTypes.exact({
+        category: PropTypes.string.isRequired,
+        minPrice: PropTypes.number.isRequired,
+        maxPrice: PropTypes.number.isRequired,
+    }),
+    categories: PropTypes.array,
 }
